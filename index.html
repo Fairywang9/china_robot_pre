@@ -1,692 +1,368 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中国机器人产业及商业化模式交互式报告</title>
+    <title>EurekaTalk - 科技与思考</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Visualization & Content Choices:
-        - Market Size/Share (Overall, Industrial, Service): Goal: Inform/Compare. Viz: Bar/Pie charts (Chart.js). Interaction: Tooltips. Justification: Clear visual comparison of proportions and trends.
-        - 产业链: Goal: Organize. Viz: HTML/CSS diagram. Interaction: Hover for full details, Click for details popup. Justification: Visualizes complex relationships effectively with layered information access.
-        - Key Policies: Goal: Inform. Viz: Clickable summary cards. Interaction: Expand/Collapse (if implemented, currently static). Justification: Concise presentation of important text.
-        - Manufacturer Profiles: Goal: Inform/Organize. Viz: Interactive cards. Interaction: Hover for full details, Click for details popup. Justification: Structured display of company info with quick identification and preview.
-        - Application Areas: Goal: Inform. Viz: Icon-based lists/grids. Interaction: None or hover. Justification: Quick visual overview.
-        - Commercial Models (RaaS, etc.): Goal: Inform. Viz: Explanatory text blocks. Interaction: Static or linked from relevant sections. Justification: Direct explanation of concepts.
-        - Trends (Price, Growth): Goal: Change/Inform. Viz: Line charts or dynamic stats (Chart.js). Interaction: Tooltips. Justification: Shows evolution over time.
-        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F8F7F4; color: #3D3D3D; }
-        .nav-button { padding: 0.5rem 1rem; margin: 0 0.25rem; border-radius: 0.375rem; transition: background-color 0.3s, color 0.3s; font-weight: 500; }
-        .nav-button.active { background-color: #6C7A89; color: #F8F7F4; }
-        .nav-button:not(.active):hover { background-color: #A0AEC0; color: #F8F7F4; }
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-        .chart-container { position: relative; width: 100%; max-width: 600px; margin-left: auto; margin-right: auto; height: 300px; max-height: 400px; }
-        @media (min-width: 768px) { .chart-container { height: 350px; } }
-        .card { background-color: #FFFFFF; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); padding: 1.5rem; margin-bottom: 1rem; }
-        .tab-button { padding: 0.5rem 1rem; margin-right: 0.5rem; border-radius: 0.375rem; background-color: #E2E8F0; transition: background-color 0.3s; cursor:pointer; }
-        .tab-button.active { background-color: #6C7A89; color: #F8F7F4; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        h1, h2, h3 { color: #6C7A89; }
-        .tooltip {
-            position: absolute;
-            background-color: rgba(45, 55, 72, 0.97); /* Tailwind Slate 800 with opacity */
-            color: #F8F7F4;
-            padding: 10px 15px;
-            border-radius: 0.375rem; /* 6px */
-            font-size: 0.875rem;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.2s ease-in-out;
-            z-index: 1050;
-            white-space: normal; /* Allow wrapping for multi-line content */
-            max-width: 320px; /* Max width for the tooltip */
-            text-align: left; /* Align text to left for paragraphs */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-            display: none; /* Initially hidden, controlled by JS */
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
         }
-        .interactive-diagram-item { border: 1px solid #A0AEC0; padding: 0.75rem; border-radius: 0.375rem; margin-bottom: 0.5rem; cursor: pointer; transition: background-color 0.2s; }
-        .interactive-diagram-item:hover { background-color: #E2E8F0; }
-        .details-popup { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 2rem; border-radius: 0.5rem; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); z-index: 1000; max-width: 90vw; width: 500px; max-height: 80vh; overflow-y: auto; display: none; }
-        .details-popup-content h4 { color: #6C7A89; margin-bottom: 0.5rem; font-size: 1.125rem; }
-        .details-popup-content p { margin-bottom: 0.25rem; line-height: 1.6; }
-        .close-popup { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; cursor: pointer; color: #3D3D3D; }
+        .hidden-lang {
+            display: none !important;
+        }
+        .lang-btn.active {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: #3b82f6; /* blue-500 */
+            margin: 8px auto 0;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem; /* py-3 px-6 */
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+            font-weight: 600; /* semibold */
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            text-decoration: none;
+        }
+        .cta-button:hover {
+            background-color: #1d4ed8; /* blue-700 */
+            transform: translateY(-2px);
+        }
     </style>
 </head>
-<body class="antialiased">
-    <div id="tooltip" class="tooltip"></div>
-    <div id="detailsPopup" class="details-popup">
-        <span class="close-popup" onclick="closeDetailsPopup()">&times;</span>
-        <div id="detailsPopupContent" class="details-popup-content"></div>
-    </div>
+<body class="bg-gray-100 text-gray-800">
 
-    <header class="bg-white shadow-md sticky top-0 z-50 py-4">
-        <div class="container mx-auto px-4">
-            <h1 class="text-2xl font-bold text-center mb-4">中国机器人产业及商业化模式洞察</h1>
-            <nav id="mainNav" class="flex flex-wrap justify-center">
-                <button class="nav-button active" data-target="overview">产业概览</button>
-                <button class="nav-button" data-target="industrial">工业机器人</button>
-                <button class="nav-button" data-target="service">服务机器人</button>
-                <button class="nav-button" data-target="collaborative">协作机器人</button>
-                <button class="nav-button" data-target="humanoid">人形机器人</button>
-                <button class="nav-button" data-target="special">特种机器人</button>
-                <button class="nav-button" data-target="medical">医疗机器人</button>
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600">
+                <a href="index.html">EurekaTalk</a>
+            </div>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="index.html#home" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                    <span lang="zh">首页</span>
+                    <span lang="en" class="hidden-lang">Home</span>
+                </a>
+                <a href="about.html" class="text-gray-600 hover:text-blue-600 transition duration-300"> <span lang="zh">关于我们</span>
+                    <span lang="en" class="hidden-lang">About Us</span>
+                </a>
+                <a href="services.html" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                    <span lang="zh">服务与洞察</span>
+                    <span lang="en" class="hidden-lang">Services & Insights</span>
+                </a>
+                <a href="blog.html" class="text-gray-600 hover:text-blue-600 transition duration-300"> <span lang="zh">博客</span>
+                    <span lang="en" class="hidden-lang">Blog</span>
+                </a>
+                <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                    <span lang="zh">联系我</span>
+                    <span lang="en" class="hidden-lang">Contact</span>
+                </a>
             </nav>
+            <div class="flex items-center">
+                <button id="lang-zh" class="lang-btn active text-sm px-3 py-1.5 rounded-l-md border border-gray-300 hover:bg-blue-500 hover:text-white transition-colors duration-200" onclick="switchLanguage('zh')">中文</button>
+                <button id="lang-en" class="lang-btn text-sm px-3 py-1.5 rounded-r-md border border-gray-300 border-l-0 hover:bg-blue-500 hover:text-white transition-colors duration-200" onclick="switchLanguage('en')">EN</button>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
+            <a href="index.html#home" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link">
+                <span lang="zh">首页</span>
+                <span lang="en" class="hidden-lang">Home</span>
+            </a>
+            <a href="about.html" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link"> <span lang="zh">关于我们</span>
+                <span lang="en" class="hidden-lang">About Us</span>
+            </a>
+            <a href="services.html" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link">
+                <span lang="zh">服务与洞察</span>
+                <span lang="en" class="hidden-lang">Services & Insights</span>
+            </a>
+            <a href="blog.html" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link"> <span lang="zh">博客</span>
+                <span lang="en" class="hidden-lang">Blog</span>
+            </a>
+            <a href="index.html#contact" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link">
+                <span lang="zh">联系我</span>
+                <span lang="en" class="hidden-lang">Contact</span>
+            </a>
         </div>
     </header>
 
-    <main class="container mx-auto p-4 mt-4">
-        <section id="overview" class="content-section active">
-            <h2 class="text-xl font-semibold mb-3">1. 中国机器人产业概览</h2>
-            <p class="mb-4 text-gray-700">中国机器人产业正经历高速发展，已成为全球机器人领域的重要力量。本部分将概述中国机器人市场的整体规模、增长趋势、产业链结构以及相关的政策环境，为理解中国机器人产业的全貌提供基础。</p>
-            
-            <div class="grid md:grid-cols-2 gap-4 mb-6">
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">市场规模与增长</h3>
-                    <div class="chart-container h-[300px] md:h-[350px]">
-                        <canvas id="marketSizeChart"></canvas>
-                    </div>
-                    <p class="text-sm text-gray-600 mt-2">图表展示了中国机器人市场规模（2022年数据）及主要细分市场占比。整体市场规模达到174亿美元，年均增长率高达22%。</p>
-                </div>
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">产业链结构</h3>
-                    <div id="chainDiagram">
-                        <div class="interactive-diagram-item" data-details="chain-upstream">上游：核心零部件 (占整机成本约70%)</div>
-                        <div class="interactive-diagram-item" data-details="chain-midstream">中游：整机制造</div>
-                        <div class="interactive-diagram-item" data-details="chain-downstream">下游：系统集成与应用</div>
-                    </div>
-                     <p class="text-sm text-gray-600 mt-2">将鼠标悬停或点击上方模块查看产业链各环节的详细信息。</p>
-                </div>
-            </div>
+    <section id="home" class="hero-gradient text-white pt-32 pb-20 px-6 text-center">
+        <div class="container mx-auto">
+            <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                <span lang="zh">探索科技前沿，分享深度思考</span>
+                <span lang="en" class="hidden-lang">Exploring Tech Frontiers, Sharing Deep Insights</span>
+            </h1>
+            <p class="text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+                <span lang="zh">欢迎来到 EurekaTalk。在这里，我们讨论最新的科技趋势、数据分析、以及对商业和生活的影响。</span>
+                <span lang="en" class="hidden-lang">Welcome to EurekaTalk. Here, we discuss the latest technology trends, data analysis, and their impact on business and life.</span>
+            </p>
+            <a href="#contact" class="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-gray-100 transition duration-300">
+                <span lang="zh">保持联系</span>
+                <span lang="en" class="hidden-lang">Get in Touch</span>
+            </a>
+        </div>
+    </section>
 
-            <div class="card">
-                <h3 class="text-lg font-semibold mb-2">主要政策支持</h3>
-                <div class="space-y-2">
-                    <div class="p-3 bg-blue-50 rounded-md">
-                        <h4 class="font-medium text-blue-700">《“十四五”机器人产业发展规划》</h4>
-                        <p class="text-sm text-gray-600">目标到2025年，中国成为全球机器人技术创新策源地、高端制造集聚地和集成应用新高地。产业营收年均增速超20%。</p>
-                    </div>
-                    <div class="p-3 bg-green-50 rounded-md">
-                        <h4 class="font-medium text-green-700">《“机器人+”应用行动实施方案》</h4>
-                        <p class="text-sm text-gray-600">聚焦10大应用领域，推广200个以上典型应用场景，目标到2025年制造业机器人密度翻番。</p>
-                    </div>
-                </div>
-                <p class="text-sm text-gray-600 mt-2">国家及地方政府通过规划引导、资金补贴、场景开放等多种方式支持机器人产业发展。</p>
-            </div>
-        </section>
+    <section id="featured-image" class="py-10 bg-white">
+        <div class="container mx-auto px-6">
+            <img src="https://placehold.co/1200x500/60a5fa/ffffff?text=请替换为您的特色图片" alt="特色图片" class="rounded-lg shadow-xl w-full mx-auto">
+            <p class="text-center text-sm text-gray-500 mt-2">
+                <span lang="zh">在这里添加图片的简短描述或标题（可选）</span>
+                <span lang="en" class="hidden-lang">Add a short description or caption for the image here (optional)</span>
+            </p>
+        </div>
+    </section>
 
-        <section id="industrial" class="content-section">
-            <h2 class="text-xl font-semibold mb-3">2. 中国工业机器人产业分析</h2>
-            <p class="mb-4 text-gray-700">工业机器人是中国机器人产业的基石，市场规模庞大且持续增长。本部分将深入探讨中国工业机器人的市场格局、主要国内外制造商、典型的商业化模式以及在汽车、3C、新能源等关键领域的应用情况。</p>
-            <div class="mb-4 border-b border-gray-300">
-                <nav class="flex -mb-px industrial-tabs">
-                    <button class="tab-button active" data-target="industrial-market">市场格局</button>
-                    <button class="tab-button" data-target="industrial-players">主要制造商</button>
-                    <button class="tab-button" data-target="industrial-apps">应用领域</button>
-                </nav>
+    <section id="about" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-center mb-12">
+                <span lang="zh">关于我们</span>
+                <span lang="en" class="hidden-lang">About Us</span>
+            </h2>
+            <div class="text-center max-w-2xl mx-auto">
+                <p class="mb-8 text-gray-700 leading-relaxed">
+                    <span lang="zh">你好！我是 EurekaTalk 的博主，对科技、数据和创新充满热情。通过这个平台，我希望分享我的见解、经验和对未来的展望，连接思想，激发讨论。</span>
+                    <span lang="en" class="hidden-lang">Hello! I'm the blogger behind EurekaTalk, passionate about technology, data, and innovation. Through this platform, I aim to share insights, experiences, and future outlooks, connecting minds and sparking discussions.</span>
+                </p>
+                <a href="about.html" class="cta-button">
+                    <span lang="zh">了解更多关于我</span>
+                    <span lang="en" class="hidden-lang">Learn More About Me</span>
+                </a>
             </div>
-            <div id="industrial-market" class="tab-content active">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="card">
-                        <h3 class="text-lg font-semibold mb-2">市场份额动态 (2023年数据)</h3>
-                        <div class="chart-container h-[300px] md:h-[350px]">
-                            <canvas id="industrialMarketShareChart"></canvas>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-2">2023年国产工业机器人销量首次超过外资品牌，国产化率达到约50%。</p>
-                    </div>
-                    <div class="card">
-                        <h3 class="text-lg font-semibold mb-2">主要趋势</h3>
-                        <ul class="list-disc list-inside space-y-1 text-gray-700">
-                            <li>国产替代加速，尤其在光伏、锂电等新兴行业。</li>
-                            <li>价格竞争激烈，促进行业洗牌。</li>
-                            <li>向智能化、柔性化、人机协作方向发展。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="industrial-players" class="tab-content">
-                <h3 class="text-lg font-semibold mb-2">重点制造商概览</h3>
-                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="card interactive-diagram-item" data-details="player-siasun">新松 (Siasun)</div>
-                    <div class="card interactive-diagram-item" data-details="player-estun">埃斯顿 (Estun)</div>
-                    <div class="card interactive-diagram-item" data-details="player-inovance">汇川技术 (Inovance)</div>
-                    <div class="card interactive-diagram-item" data-details="player-efort">埃夫特 (Efort)</div>
-                    <div class="card interactive-diagram-item" data-details="player-abb">ABB</div>
-                    <div class="card interactive-diagram-item" data-details="player-fanuc">发那科 (FANUC)</div>
-                 </div>
-                 <p class="text-sm text-gray-600 mt-2">将鼠标悬停或点击制造商查看其主要产品、技术特点和商业策略。</p>
-            </div>
-            <div id="industrial-apps" class="tab-content">
-                <h3 class="text-lg font-semibold mb-2">主要应用领域</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div class="card text-center"><span class="text-2xl">🚗</span><p>汽车制造</p></div>
-                    <div class="card text-center"><span class="text-2xl">📱</span><p>3C电子</p></div>
-                    <div class="card text-center"><span class="text-2xl">☀️</span><p>新能源(光伏锂电)</p></div>
-                    <div class="card text-center"><span class="text-2xl">🔩</span><p>金属加工</p></div>
-                </div>
-                <p class="text-sm text-gray-600 mt-2">工业机器人广泛应用于焊接、涂装、搬运、装配等多个制造环节。</p>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="service" class="content-section">
-            <h2 class="text-xl font-semibold mb-3">3. 中国服务机器人产业分析</h2>
-            <p class="mb-4 text-gray-700">服务机器人是增长最快的机器人细分市场之一，应用场景从商业服务延伸至家庭生活。本部分将分析中国服务机器人的市场格局，介绍普渡、擎朗等主要制造商，探讨“机器人即服务”（RaaS）等商业模式，并展示其在餐饮、酒店、清洁等领域的应用案例。</p>
-             <div class="mb-4 border-b border-gray-300">
-                <nav class="flex -mb-px service-tabs">
-                    <button class="tab-button active" data-target="service-market">市场格局</button>
-                    <button class="tab-button" data-target="service-players">主要制造商</button>
-                    <button class="tab-button" data-target="service-apps">应用案例</button>
-                </nav>
+    <section id="services" class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-center mb-12">
+                <span lang="zh">服务与洞察</span>
+                <span lang="en" class="hidden-lang">Services & Insights</span>
+            </h2>
+            <p class="text-center text-gray-700 mb-8 max-w-2xl mx-auto">
+                <span lang="zh">我们提供全面的专业服务，满足从个人到商业开发的各类客户需求。探索我们如何助您实现目标。</span>
+                <span lang="en" class="hidden-lang">Our comprehensive suite of professional services caters to a diverse clientele. Discover how we can help you achieve your goals.</span>
+            </p>
+            <div class="text-center">
+                <a href="services.html" class="cta-button">
+                    <span lang="zh">查看所有服务</span>
+                    <span lang="en" class="hidden-lang">Explore Our Services</span>
+                </a>
             </div>
-            <div id="service-market" class="tab-content active">
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div class="card">
-                        <h3 class="text-lg font-semibold mb-2">商用服务机器人市场份额 (全球, 2023)</h3>
-                        <div class="chart-container h-[300px] md:h-[350px]">
-                            <canvas id="serviceMarketShareChart"></canvas>
-                        </div>
-                        <p class="text-sm text-gray-600 mt-2">中国厂商在全球商用服务机器人市场表现突出，普渡机器人市场份额领先。</p>
-                    </div>
-                     <div class="card">
-                        <h3 class="text-lg font-semibold mb-2">主要细分市场与趋势</h3>
-                        <ul class="list-disc list-inside space-y-1 text-gray-700">
-                            <li>餐饮配送：擎朗、普渡领先，“一店多机”成趋势。</li>
-                            <li>酒店服务：云迹、优地深耕，向多功能平台演进。</li>
-                            <li>清洁服务：“人机协作”为主流，功能持续升级。</li>
-                            <li>商业模式：RaaS（机器人即服务）模式降低使用门槛。</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div id="service-players" class="tab-content">
-                <h3 class="text-lg font-semibold mb-2">重点制造商概览</h3>
-                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="card interactive-diagram-item" data-details="player-pudu">普渡机器人 (Pudu)</div>
-                    <div class="card interactive-diagram-item" data-details="player-keenon">擎朗智能 (Keenon)</div>
-                    <div class="card interactive-diagram-item" data-details="player-gausium">高仙机器人 (Gausium)</div>
-                    <div class="card interactive-diagram-item" data-details="player-yunji">云迹科技 (Yunji)</div>
-                 </div>
-                 <p class="text-sm text-gray-600 mt-2">将鼠标悬停或点击制造商了解其产品线、核心技术和商业化策略。</p>
-            </div>
-            <div id="service-apps" class="tab-content">
-                <h3 class="text-lg font-semibold mb-2">典型应用场景</h3>
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
-                    <div class="card text-center"><span class="text-2xl">🍽️</span><p>餐饮配送与回盘</p></div>
-                    <div class="card text-center"><span class="text-2xl">🏨</span><p>酒店物品配送</p></div>
-                    <div class="card text-center"><span class="text-2xl">🧹</span><p>商业清洁</p></div>
-                    <div class="card text-center"><span class="text-2xl">🛒</span><p>零售导购</p></div>
-                    <div class="card text-center"><span class="text-2xl">🧑‍⚕️</span><p>医疗物流与康养</p></div>
-                    <div class="card text-center"><span class="text-2xl">🎓</span><p>教育陪伴</p></div>
-                </div>
-                 <p class="text-sm text-gray-600 mt-2">服务机器人正融入各行各业，提升效率与体验。</p>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="collaborative" class="content-section">
-            <h2 class="text-xl font-semibold mb-3">4. 中国协作机器人产业分析</h2>
-            <p class="mb-4 text-gray-700">协作机器人以其安全、易用、灵活的特性，在工业及非工业领域均获得快速发展。本部分将解析中国协作机器人市场的竞争格局、主要参与者梯队、价格趋势以及在汽车零部件、3C电子、新商业等场景的应用。</p>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">市场增长与特点</h3>
-                    <div class="chart-container h-[250px] md:h-[300px]">
-                        <canvas id="cobotMarketGrowthChart"></canvas>
-                    </div>
-                    <p class="text-sm text-gray-600 mt-2">中国协作机器人市场规模预计持续增长，呈现“量升价降”趋势。</p>
+    <section id="blog" class="py-20 px-6 bg-gray-50">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-center mb-12">
+                <span lang="zh">最新博客</span>
+                <span lang="en" class="hidden-lang">Latest Blog Posts</span>
+            </h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/400x250/9ca3af/ffffff?text=人形机器人前沿" alt="人形机器人" class="rounded-md mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-700">
+                        <span lang="zh">人形机器人：未来已来，还是任重道远？</span>
+                        <span lang="en" class="hidden-lang">Humanoid Robots: Future Now, or Long Road Ahead?</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <span lang="zh">2025年5月22日</span>
+                        <span lang="en" class="hidden-lang">May 22, 2025</span>
+                    </p>
+                    <p class="text-gray-700 text-sm leading-relaxed flex-grow">
+                        <span lang="zh">从特斯拉的 Optimus 到波士顿动力的人形机器人，我们正见证着技术的飞速进步。它们会如何改变我们的工作与生活？</span>
+                        <span lang="en" class="hidden-lang">From Tesla's Optimus to Boston Dynamics' humanoids, we're witnessing rapid technological advancements. How will they change our work and lives?</span>
+                    </p>
+                    <a href="blog.html#post-humanoid" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start"> <span lang="zh">阅读更多 &rarr;</span>
+                        <span lang="en" class="hidden-lang">Read More &rarr;</span>
+                    </a>
                 </div>
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">主要制造商梯队</h3>
-                    <ul class="list-none space-y-1 text-gray-700">
-                        <li><strong>第一梯队:</strong> 节卡、艾利特、遨博、越疆 (原大族)</li>
-                        <li><strong>第二梯队:</strong> 思灵、中科新松、珞石</li>
-                        <li><strong>第三梯队:</strong> 法奥意威、达明、慧灵</li>
-                    </ul>
-                    <p class="text-sm text-gray-600 mt-1">国产化率高，价格竞争激烈。</p>
-                    <div class="mt-3">
-                        <h4 class="font-medium">重点企业 (悬停/点击查看详情):</h4>
-                        <div class="flex flex-wrap gap-2 mt-1">
-                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm interactive-diagram-item" data-details="player-jaka">节卡 (JAKA)</span>
-                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm interactive-diagram-item" data-details="player-dobot">越疆 (DOBOT)</span>
-                            <span class="bg-gray-200 text-gray-700 px-2 py-1 rounded-full text-sm interactive-diagram-item" data-details="player-elite">艾利特 (Elite)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card mt-4">
-                <h3 class="text-lg font-semibold mb-2">应用领域拓展</h3>
-                <p class="text-gray-700 mb-2">从传统工业（汽车、3C、机械加工）向非工业场景（医疗、教育、餐饮零售）快速渗透。</p>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                    <div class="bg-indigo-100 p-3 rounded-md text-center"><span class="text-xl">🔩</span><p class="text-sm">工业装配</p></div>
-                    <div class="bg-teal-100 p-3 rounded-md text-center"><span class="text-xl">☕</span><p class="text-sm">新商业 (咖啡)</p></div>
-                    <div class="bg-amber-100 p-3 rounded-md text-center"><span class="text-xl">🧑‍🏫</span><p class="text-sm">教育科研</p></div>
-                    <div class="bg-rose-100 p-3 rounded-md text-center"><span class="text-xl">🩹</span><p class="text-sm">医疗辅助</p></div>
-                </div>
-            </div>
-        </section>
 
-        <section id="humanoid" class="content-section">
-            <h2 class="text-xl font-semibold mb-3">5. 中国人形机器人产业分析</h2>
-            <p class="mb-4 text-gray-700">人形机器人是机器人技术的集大成者，中国在该领域发展势头强劲，2024年被视为商业化元年。本部分将探讨人形机器人的市场前景、主要参与者类型、代表性产品以及在工业制造、科研等领域的初步应用。</p>
-             <div class="grid md:grid-cols-2 gap-4">
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">市场规模预测</h3>
-                     <div class="chart-container h-[250px] md:h-[300px]">
-                        <canvas id="humanoidMarketForecastChart"></canvas>
-                    </div>
-                    <p class="text-sm text-gray-600 mt-2">全球人形机器人市场潜力巨大，预计2030年将突破200亿美元。</p>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/400x250/a5b4fc/ffffff?text=外骨骼技术突破" alt="外骨骼技术" class="rounded-md mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-700">
+                        <span lang="zh">外骨骼技术：增强人类能力的边界</span>
+                        <span lang="en" class="hidden-lang">Exoskeleton Technology: Pushing Human Augmentation</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <span lang="zh">2025年5月21日</span>
+                        <span lang="en" class="hidden-lang">May 21, 2025</span>
+                    </p>
+                    <p class="text-gray-700 text-sm leading-relaxed flex-grow">
+                        <span lang="zh">外骨骼不再仅限于科幻电影。它们在医疗康复、工业生产乃至军事领域的应用前景广阔，但挑战与机遇并存。</span>
+                        <span lang="en" class="hidden-lang">Exoskeletons are no longer just sci-fi. Their applications in medical rehab, industry, and military are vast, yet challenges and opportunities coexist.</span>
+                    </p>
+                    <a href="blog.html#post-exoskeleton" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start"> <span lang="zh">阅读更多 &rarr;</span>
+                        <span lang="en" class="hidden-lang">Read More &rarr;</span>
+                    </a>
                 </div>
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">主要参与者类型</h3>
-                    <ul class="list-disc list-inside space-y-1 text-gray-700">
-                        <li>初创公司 (优必选, 傅利叶, 智元, 宇树)</li>
-                        <li>传统机器人企业 (达闼, 越疆)</li>
-                        <li>互联网与科技巨头 (小米, 阿里, 华为)</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="card mt-4">
-                <h3 class="text-lg font-semibold mb-2">代表性产品与制造商</h3>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <div class="card interactive-diagram-item" data-details="player-ubtech-humanoid">优必选 (Walker系列)</div>
-                    <div class="card interactive-diagram-item" data-details="player-fourier-humanoid">傅利叶智能 (GR-1)</div>
-                    <div class="card interactive-diagram-item" data-details="player-agibot-humanoid">智元机器人 (远征A1)</div>
-                    <div class="card interactive-diagram-item" data-details="player-unitree-humanoid">宇树科技 (H1/G1)</div>
-                    <div class="card interactive-diagram-item" data-details="player-xiaomi-humanoid">小米 (CyberOne)</div>
-                </div>
-                <p class="text-sm text-gray-600 mt-2">将鼠标悬停或点击查看各产品的技术特点、目标应用和商业化进展。</p>
-            </div>
-             <div class="card mt-4">
-                <h3 class="text-lg font-semibold mb-2">初步应用探索</h3>
-                <p class="text-gray-700 mb-2">工业制造（汽车、3C）、科研教育、商业服务、特种应用等是主要探索方向。</p>
-                 <p class="text-sm text-gray-700">例如，优必选Walker机器人在比亚迪等工厂进行质检、搬运等任务的实训。</p>
-            </div>
-        </section>
 
-        <section id="special" class="content-section">
-            <h2 class="text-xl font-semibold mb-3">6. 中国特种机器人产业分析</h2>
-            <p class="mb-4 text-gray-700">特种机器人在高危环境或特殊工况下替代人类执行任务，具有重要战略意义。本部分将介绍中国特种机器人的市场格局、主要参与者类型、在电力巡检、消防救援、建筑、农业等细分领域的应用情况。</p>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">市场概况 (2022年)</h3>
-                    <p class="text-2xl font-bold text-sky-600">约22亿美元</p>
-                    <p class="text-gray-600">占整体机器人市场12.6%。</p>
-                    <h4 class="font-medium mt-3 mb-1">主要参与者类型:</h4>
-                    <ul class="list-disc list-inside text-sm text-gray-700">
-                        <li>大型国企及研究机构 (国家电网)</li>
-                        <li>专业化民营企业 (申昊科技, 亿嘉和)</li>
-                        <li>传统机器人企业拓展 (新松)</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">主要细分领域与趋势 (悬停/点击查看详情)</h3>
-                    <div class="space-y-2">
-                        <div class="p-2 bg-lime-50 rounded-md interactive-diagram-item" data-details="special-power">电力巡检 (国网智能, 申昊, 亿嘉和)</div>
-                        <div class="p-2 bg-red-50 rounded-md interactive-diagram-item" data-details="special-fire">消防救援 (国泰科技)</div>
-                        <div class="p-2 bg-orange-50 rounded-md interactive-diagram-item" data-details="special-construction">建筑施工 (博智林)</div>
-                        <div class="p-2 bg-green-50 rounded-md interactive-diagram-item" data-details="special-agriculture">农业应用 (中科原动力)</div>
-                        <div class="p-2 bg-cyan-50 rounded-md interactive-diagram-item" data-details="special-underwater">水下作业</div>
-                    </div>
-                    <p class="text-sm text-gray-600 mt-2">趋势：环境适应性增强、智能化水平提升、与新技术融合。</p>
+                <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col">
+                    <img src="https://placehold.co/400x250/818cf8/ffffff?text=AI行业洞察" alt="AI行业洞察" class="rounded-md mb-4 w-full h-48 object-cover">
+                    <h3 class="text-xl font-semibold mb-2 text-blue-700">
+                        <span lang="zh">AI 行业观察：泡沫之下，真实价值何在？</span>
+                        <span lang="en" class="hidden-lang">AI Industry Insights: Real Value Beneath the Hype?</span>
+                    </h3>
+                    <p class="text-gray-600 text-sm mb-3">
+                        <span lang="zh">2025年5月20日</span>
+                        <span lang="en" class="hidden-lang">May 20, 2025</span>
+                    </p>
+                    <p class="text-gray-700 text-sm leading-relaxed flex-grow">
+                        <span lang="zh">生成式 AI 引爆市场，但可持续的商业模式和技术壁垒仍在探索中。我们如何辨别趋势，把握未来机遇？</span>
+                        <span lang="en" class="hidden-lang">Generative AI has ignited the market, but sustainable business models and tech barriers are still being explored. How do we discern trends and seize future opportunities?</span>
+                    </p>
+                    <a href="blog.html#post-ai-insights" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start"> <span lang="zh">阅读更多 &rarr;</span>
+                        <span lang="en" class="hidden-lang">Read More &rarr;</span>
+                    </a>
                 </div>
             </div>
-        </section>
+             <div class="text-center mt-12">
+                <a href="blog.html" class="cta-button"> <span lang="zh">查看所有博客</span>
+                    <span lang="en" class="hidden-lang">View All Posts</span>
+                </a>
+            </div>
+        </div>
+    </section>
 
-        <section id="medical" class="content-section">
-            <h2 class="text-xl font-semibold mb-3">7. 中国医疗机器人产业分析</h2>
-            <p class="mb-4 text-gray-700">医疗机器人融合机器人技术与医疗健康产业，深刻改变疾病诊疗康复方式。本部分将分析中国医疗机器人市场格局，介绍骨科、腔镜、康复等细分领域的主要本土及国际参与者，并探讨其发展趋势。</p>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">市场概况与增长</h3>
-                    <p class="text-gray-700">全球医疗机器人安装量2023年达6100台，同比增长36%。中国是重要市场和生产国。</p>
-                    <h4 class="font-medium mt-3 mb-1">主要本土企业 (悬停/点击查看详情):</h4>
-                     <ul class="list-disc list-inside text-sm text-gray-700">
-                        <li class="interactive-diagram-item" data-details="player-tinavi">天智航 (骨科手术)</li>
-                        <li class="interactive-diagram-item" data-details="player-fourier-medical">傅利叶智能 (康复)</li>
-                        <li>术锐技术 (腔镜手术)</li>
-                        <li>柏惠维康 (神经外科)</li>
-                    </ul>
-                </div>
-                 <div class="card">
-                    <h3 class="text-lg font-semibold mb-2">主要细分领域</h3>
-                    <div class="space-y-2">
-                        <div>
-                            <h4 class="font-semibold text-purple-700">手术机器人</h4>
-                            <ul class="list-disc list-inside ml-4 text-sm text-gray-600">
-                                <li>骨科 (天智航“天玑”)</li>
-                                <li>腔镜 (术锐)</li>
-                                <li>神经外科 (柏惠维康“睿米”)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold text-emerald-700">康复机器人</h4>
-                            <ul class="list-disc list-inside ml-4 text-sm text-gray-600">
-                                <li>肢体康复 (傅利叶智能系列, 大艾)</li>
-                            </ul>
-                        </div>
-                         <div>
-                            <h4 class="font-semibold text-blue-700">辅助与服务机器人</h4>
-                            <p class="text-sm text-gray-600">药品配送、导诊、消毒等。</p>
-                        </div>
-                    </div>
+    <section id="contact" class="py-20 px-6 bg-white">
+        <div class="container mx-auto">
+            <h2 class="section-title text-3xl font-bold text-center mb-12">
+                <span lang="zh">联系我</span>
+                <span lang="en" class="hidden-lang">Get In Touch</span>
+            </h2>
+            <div class="max-w-2xl mx-auto bg-gray-50 p-8 md:p-12 rounded-xl shadow-2xl text-center">
+                <p class="text-gray-700 mb-8 text-lg">
+                    <span lang="zh">有任何问题、建议或合作意向？我非常乐意倾听您的想法！请点击下方按钮，通过问卷与我联系。</span>
+                    <span lang="en" class="hidden-lang">Have questions, suggestions, or collaboration ideas? I'd love to hear from you! Please click the button below to reach out via our questionnaire.</span>
+                </p>
+                <a href="https://wj.qq.com/s2/12345678/xxxx/" target="_blank" rel="noopener noreferrer" class="cta-button text-lg">
+                    <span lang="zh">填写联系问卷</span>
+                    <span lang="en" class="hidden-lang">Fill Out Contact Form</span>
+                </a>
+                <div class="mt-12">
+                    <p class="text-gray-700 mb-2">
+                        <span lang="zh">您也可以通过以下方式找到我：</span>
+                        <span lang="en" class="hidden-lang">You can also find me here:</span>
+                    </p>
+                    <div class="flex justify-center space-x-6">
+                        <a href="#" class="text-blue-600 hover:text-blue-800 transition duration-300 text-2xl"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 transition duration-300 text-2xl"><i class="fab fa-github"></i></a>
+                        <a href="#" class="text-blue-600 hover:text-blue-800 transition duration-300 text-2xl"><i class="fab fa-twitter"></i></a>
+                         </div>
                 </div>
             </div>
-            <div class="card mt-4">
-                <h3 class="text-lg font-semibold mb-2">发展趋势</h3>
-                <ul class="list-disc list-inside space-y-1 text-gray-700">
-                    <li>智能化与精准化 (AI, 5G远程手术)</li>
-                    <li>微创化与普惠化</li>
-                    <li>国产化替代加速</li>
-                    <li>应用场景向基层和家庭拓展</li>
-                </ul>
-            </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer class="text-center py-8 mt-8 border-t border-gray-300">
-        <p class="text-sm text-gray-500">&copy; 2024 中国机器人产业洞察。基于调研报告生成。</p>
+    <footer class="bg-gray-800 text-gray-300 py-12 px-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; <span id="currentYear"></span> EurekaTalk. 
+                <span lang="zh">版权所有。</span>
+                <span lang="en" class="hidden-lang">All Rights Reserved.</span>
+            </p>
+            <p class="text-sm mt-2">
+                <span lang="zh">由 <a href="https://github.com" class="hover:text-blue-400">GitHub Pages</a> 强力驱动</span>
+                <span lang="en" class="hidden-lang">Powered by <a href="https://github.com" class="hover:text-blue-400">GitHub Pages</a></span>
+            </p>
+        </div>
     </footer>
 
     <script>
-        const mainNav = document.getElementById('mainNav');
-        const contentSections = document.querySelectorAll('.content-section');
-        const tooltip = document.getElementById('tooltip');
-        const detailsPopup = document.getElementById('detailsPopup');
-        const detailsPopupContent = document.getElementById('detailsPopupContent');
+        // Language Switching Logic
+        const defaultLang = 'zh';
+        let currentLang = localStorage.getItem('eurekatalk-lang') || defaultLang;
 
-        const dataStore = {
-            "chain-upstream": { title: "产业链上游：核心零部件", content: "主要包括减速器、伺服系统、控制器。成本约占工业机器人整机的70%。减速器技术壁垒高，国产化率提升中（绿的谐波、双环传动等）。伺服系统国产化率超38%（汇川技术等），但高端仍有差距。控制器国产化率较低，不足20%。" },
-            "chain-midstream": { title: "产业链中游：整机制造", content: "涵盖工业、服务、协作、特种、人形等各类机器人。本土企业凭借成本、响应速度和本土化理解，市场份额不断提升。" },
-            "chain-downstream": { title: "产业链下游：系统集成与应用", content: "为特定行业提供自动化解决方案。本土企业已占据主要市场份额。应用领域广泛，如汽车、3C、新能源、餐饮、医疗等。" },
-            "player-siasun": { title: "新松机器人 (Siasun)", content: "产品线全面，包括工业、移动、特种、洁净、协作及医疗服务机器人。技术特点：智能感知、自主决策、非标定制。商业模式：项目制为主，直销，提供整体解决方案。" },
-            "player-estun": { title: "埃斯顿 (Estun)", content: "全产业链战略（核心部件到整机及系统）。产品：六轴、SCARA、协作、专用机器人。商业模式：多元化销售（直用户、集成商、设备商），“行业+大客户”策略，拓展中小企业市场。" },
-            "player-inovance": { title: "汇川技术 (Inovance)", content: "核心：工业自动化控制与驱动。产品：SCARA、六轴机器人，强调完整电气解决方案、工艺包。商业模式：提供完整解决方案，与行业客户合作研发。" },
-            "player-efort": { title: "埃夫特 (Efort)", content: "全产业链协同。产品线丰富（防爆、桌面、各负载六轴、SCARA、协作、焊接、码垛）。商业模式：“打灯塔、拓渠道”，国产替代和换道超车。" },
-            "player-abb": { title: "ABB (瑞士)", content: "全球四大家族之一。产品：多关节、协作、喷涂、焊接机器人。应用：汽车、3C、金属加工等。上海有机器人超级工厂。" },
-            "player-fanuc": { title: "发那科 (FANUC, 日本)", content: "以高可靠性和高精度著称。产品：多关节、协作、SCARA机器人。应用：汽车制造、金属加工。" },
-            "player-pudu": { title: "普渡机器人 (Pudu Robotics)", content: "全球商用服务机器人领导者。产品：配送（PuduBot 2, BellaBot）、清洁（CC1）、类人形（PUDU D7）。核心技术：PUDU VSLAM+。商业模式：直销和RaaS/租赁，全球销售网络，海外业务占比高。" },
-            "player-keenon": { title: "擎朗智能 (Keenon Robotics)", content: "全球领先服务机器人企业。产品：餐饮配送（DINERBOT T系列）、酒店、清洁、医疗、工业机器人，人形（XMAN-R1）。商业模式：RaaS为主，海外扩张迅速，价格竞争力强。" },
-            "player-gausium": { title: "高仙机器人 (Gausium)", content: "深耕商用清洁机器人。产品：Vacuum 40, Scrubber 50 Pro等多种清洁机器人。商业模式：数字化清洁解决方案，高仙云平台服务，与清洁服务公司合作。" },
-            "player-yunji": { title: "云迹科技 (Yunji Technology)", content: "专注酒店服务机器人。产品：物品配送、引领机器人。目标：提升酒店运营效率和住客体验。" },
-            "player-jaka": { title: "节卡机器人 (JAKA Robotics)", content: "国内领先协作机器人制造商。产品：Zu, Pro, C, Mini, S, A系列。特点：无线示教、图形化编程、JAKA+生态。商业模式：高性价比，全球化营销。应用：汽车、3C、零售、医疗等。" },
-            "player-dobot": { title: "越疆科技 (DOBOT)", content: "专注智能机器人手臂。产品：CRA, CR, CRS, MG400, Nova, Magician系列, X-Trainer AI平台。特点：SafeSkin安全皮肤, AI赋能。商业模式：全球销售，高性价比。应用：3C、汽车、教育等。" },
-            "player-elite": { title: "艾利特机器人 (Elite Robots)", content: "新一代人机交互协作。产品：EC, CS, CSF(力控)等八大系列。特点：易用、灵活、开放兼容。商业模式：“先品牌认知后营销拓展”。应用：医疗、汽车、3C、新零售等。" },
-            "player-ubtech-humanoid": { title: "优必选科技 (UBTECH) - 人形", content: "“人形机器人第一股”。产品：Walker系列 (S, S1, X, C), Panda Robot。技术：全栈自研（伺服、运控、AI）。商业模式：聚焦工业制造（汽车、3C），进入工厂实训；“两条腿走路”以服务机器人反哺研发。应用：工业（比亚迪、东风柳汽）、展览、科研。" },
-            "player-fourier-humanoid": { title: "傅利叶智能 (Fourier) - 人形", content: "康复机器人起家。产品：GR-1通用人形机器人。技术：自研FSA执行器，纯视觉感知。商业模式：强调通用AI载体潜力，打造开放平台，共建生态。应用：工业、康复、居家、科研、养老陪护、巡检安防。" },
-            "player-agibot-humanoid": { title: "智元机器人 (Agibot) - 人形", content: "稚晖君创办。产品：远征A1。技术：自研PowerFlow关节电机、SkillHand灵巧手，接入大模型。商业模式：先工业应用（3C、汽车），后家庭。应用：3C制造、汽车制造、生物实验室、家庭护理与陪伴。" },
-            "player-unitree-humanoid": { title: "宇树科技 (Unitree) - 人形", content: "四足机器人闻名。产品：H1, G1人形机器人。技术：自研关节电机，跑跳能力（H1）。商业模式：成本领先，大众化市场（G1售价9.9万起），线上销售。应用：科研教育、工业巡检、消防救援、商业表演、家庭服务。" },
-            "player-xiaomi-humanoid": { title: "小米 (Xiaomi) - 人形", content: "消费电子巨头。产品：CyberOne人形机器人, CyberDog四足。技术：情感感知、视觉导航。商业模式：融入“手机xAIoT”战略，形成智能互联生态。应用：小米智能工厂、智能家居服务。" },
-            "special-power": { title: "特种机器人：电力巡检", content: "主要参与者：国网智能、申昊科技、亿嘉和。应用：输电线路、变电站巡检，替代高危人工。趋势：环境适应性增强、智能化水平提升。案例：国网系统广泛部署，深中通道应用。" },
-            "special-fire": { title: "特种机器人：消防救援", content: "主要参与者：国泰科技、上海格拉曼。应用：火灾侦察、灭火、搜救、危险品处置。目的：降低消防员风险。" },
-            "special-construction": { title: "特种机器人：建筑施工", content: "主要参与者：博智林机器人（碧桂园旗下）、上海建工。应用：测量、材料配送、钢筋加工、混凝土浇筑、装饰装修。目的：提升效率、质量、安全性。" },
-            "special-agriculture": { title: "特种机器人：农业应用", content: "主要参与者：中科原动力。产品：无人农机、植保机器人、采摘机器人。应用：大田、丘陵多种场景，实现L4级智能化。目的：精准作业，提升效率。" },
-            "special-underwater": { title: "特种机器人：水下作业", content: "主要参与者：智真海洋科技、长江电力检修厂。应用：海洋科考、资源勘探、水下结构物检测维护、搜救打捞。" },
-            "player-tinavi": { title: "天智航 (TINAVI)", content: "中国骨科手术机器人领军企业。产品：“天玑”系列骨科手术机器人（已迭代至第三代）。技术：辅助医生精确定位，临床精度亚毫米级。商业模式：设备销售+耗材+技术服务，经销为主、直销为辅。应用：国内超200家医院，手术超9万例。" },
-            "player-fourier-medical": { title: "傅利叶智能 (Fourier) - 医疗", content: "康复机器人全球影响力。产品：ArmMotus™, ExoMotus™等30多款康复机器人。商业模式：“智能康复港”一站式解决方案。应用：全球超40国2000+医疗康养机构。" },
-        };
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('eurekatalk-lang', lang);
+            applyLanguage();
+        }
 
-        function showDetailsPopup(key) {
-            const item = dataStore[key];
-            if (item) {
-                detailsPopupContent.innerHTML = `<h4>${item.title}</h4><p>${item.content.replace(/\n/g, '<br>')}</p>`;
-                detailsPopup.style.display = 'block';
+        function applyLanguage() {
+            document.documentElement.lang = currentLang;
+            document.querySelectorAll('[lang]').forEach(el => {
+                if (el.getAttribute('lang') === currentLang) {
+                    el.classList.remove('hidden-lang');
+                } else {
+                    el.classList.add('hidden-lang');
+                }
+            });
+            
+            const zhBtn = document.getElementById('lang-zh');
+            const enBtn = document.getElementById('lang-en');
+            if (zhBtn && enBtn) {
+                if (currentLang === 'zh') {
+                    zhBtn.classList.add('active');
+                    enBtn.classList.remove('active');
+                } else {
+                    enBtn.classList.add('active');
+                    zhBtn.classList.remove('active');
+                }
+            }
+            
+            if (currentLang === 'zh') {
+                document.title = "EurekaTalk - 科技与思考";
+            } else {
+                document.title = "EurekaTalk - Technology & Insights";
+            }
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
             }
         }
 
-        function closeDetailsPopup() {
-            detailsPopup.style.display = 'none';
-        }
-
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('interactive-diagram-item')) {
-                const detailsKey = e.target.getAttribute('data-details');
-                if (detailsKey) {
-                    showDetailsPopup(detailsKey);
-                }
-            }
-        });
-
-        mainNav.addEventListener('click', (e) => {
-            if (e.target.tagName === 'BUTTON') {
-                const targetId = e.target.dataset.target;
-                const currentActiveButton = mainNav.querySelector('.nav-button.active');
-                if (currentActiveButton) {
-                    currentActiveButton.classList.remove('active');
-                }
-                e.target.classList.add('active');
-
-                contentSections.forEach(section => {
-                    section.classList.remove('active');
-                    if (section.id === targetId) {
-                        section.classList.add('active');
-                    }
-                });
-                window.scrollTo(0, 0);
-            }
-        });
-        
-        function setupTabs(tabContainerClass) {
-            const tabNavs = document.querySelectorAll('.' + tabContainerClass);
-            tabNavs.forEach(navElement => {
-                const tabButtons = navElement.querySelectorAll('.tab-button');
-                const sectionElement = navElement.closest('.content-section');
-                if (!sectionElement) return;
-                const tabContents = sectionElement.querySelectorAll('.tab-content');
-
-                tabButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        tabButtons.forEach(btn => btn.classList.remove('active'));
-                        button.classList.add('active');
-
-                        const targetId = button.dataset.target;
-                        tabContents.forEach(content => {
-                            content.classList.remove('active');
-                            if (content.id === targetId) {
-                                content.classList.add('active');
-                            }
-                        });
-                    });
-                });
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
             });
         }
 
-        setupTabs('industrial-tabs');
-        setupTabs('service-tabs');
-
-        const interactiveItems = document.querySelectorAll('.interactive-diagram-item');
-        interactiveItems.forEach(item => {
-            item.addEventListener('mouseenter', (e) => {
-                const detailsKey = item.getAttribute('data-details');
-                if (detailsKey && dataStore[detailsKey]) {
-                    const itemData = dataStore[detailsKey];
-                    tooltip.innerHTML = `
-                        <h4 style="font-weight: bold; margin-bottom: 5px; color: #F0F0F0; padding-bottom: 4px; border-bottom: 1px solid #777;">${itemData.title}</h4>
-                        <p style="font-size: 0.825rem; color: #D1D5DB; line-height: 1.5;">${itemData.content}</p>
-                    `;
-                    
-                    tooltip.style.display = 'block'; 
-                    tooltip.style.opacity = '0'; 
-
-                    const tooltipRect = tooltip.getBoundingClientRect();
-                    
-                    let top = e.pageY + 20; 
-                    let left = e.pageX + 20;
-
-                    if (left + tooltipRect.width > window.innerWidth - 15) {
-                        left = e.pageX - tooltipRect.width - 20;
-                    }
-                     if (left < 15) { 
-                        left = 15;
-                    }
-                    if (top + tooltipRect.height > window.innerHeight - 15) {
-                        top = e.pageY - tooltipRect.height - 20;
-                    }
-                    if (top < 15) { 
-                        top = 15;
-                    }
-
-                    tooltip.style.left = left + 'px';
-                    tooltip.style.top = top + 'px';
-                    tooltip.style.opacity = '0.95'; 
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
                 }
             });
-
-            item.addEventListener('mouseleave', () => {
-                tooltip.style.opacity = '0';
-                setTimeout(() => {
-                    if (tooltip.style.opacity === '0') { 
-                        tooltip.style.display = 'none';
-                    }
-                }, 200); 
-            });
-        });
-
-
-        const marketSizeData = {
-            labels: ['工业机器人 (50.0%)', '服务机器人 (37.4%)', '特种机器人 (12.6%)'],
-            datasets: [{
-                label: '中国机器人市场细分 (2022年, 174亿美元)',
-                data: [87, 65, 22], 
-                backgroundColor: ['#A0AEC0', '#6C7A89', '#D4B996'],
-            }]
-        };
-        new Chart(document.getElementById('marketSizeChart'), {
-            type: 'pie',
-            data: marketSizeData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: { display: true, text: '中国机器人市场结构 (2022)' },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.label}: ${context.raw}亿美元`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        const industrialMarketShareData = {
-            labels: ['国产品牌 (约50%)', '外资品牌 (约50%)'],
-            datasets: [{
-                label: '中国工业机器人市场份额 (2023年销量计)',
-                data: [50, 50],
-                backgroundColor: ['#6C7A89', '#A0AEC0'],
-            }]
-        };
-        new Chart(document.getElementById('industrialMarketShareChart'), {
-            type: 'doughnut',
-            data: industrialMarketShareData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: { display: true, text: '工业机器人市场份额 (2023)' },
-                     tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.label}: ${context.raw}%`;
-                            }
-                        }
-                    }
-                }
-            }
         });
         
-        const serviceMarketShareData = {
-            labels: ['普渡机器人 (23%)', '其他中国厂商', '其他国际厂商'],
-            datasets: [{
-                label: '全球商用服务机器人市场份额 (2023年收入计)',
-                data: [23, 37, 40], 
-                backgroundColor: ['#6C7A89', '#A0AEC0', '#D4B996'],
-            }]
-        };
-        new Chart(document.getElementById('serviceMarketShareChart'), {
-            type: 'pie',
-            data: serviceMarketShareData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: { display: true, text: '全球商用服务机器人市场 (2023)' },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return `${context.label}: ${context.raw}%`;
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-        const cobotMarketGrowthData = {
-            labels: ['2022', '2023', '2024(E)', '2025(E)', '2026(E)', '2027(E)'],
-            datasets: [{
-                label: '中国协作机器人市场规模 (亿元)',
-                data: [16.58, 18.94, 21.63, 24.70, 28.22, 32.27], 
-                borderColor: '#6C7A89',
-                backgroundColor: 'rgba(108, 122, 137, 0.1)',
-                fill: true,
-                tension: 0.1
-            }]
-        };
-        new Chart(document.getElementById('cobotMarketGrowthChart'), {
-            type: 'line',
-            data: cobotMarketGrowthData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: { display: true, text: '协作机器人市场规模预测' }
-                }
-            }
-        });
-        
-        const humanoidMarketForecastData = {
-            labels: ['2026(E) 中国', '2030(E) 中国', '2030(E) 全球'],
-            datasets: [{
-                label: '人形机器人市场规模预测 (亿元/亿美元)',
-                data: [200, 350, 1400], 
-                backgroundColor: ['#D4B996', '#A0AEC0', '#6C7A89'],
-            }]
-        };
-        new Chart(document.getElementById('humanoidMarketForecastChart'), {
-            type: 'bar',
-            data: humanoidMarketForecastData,
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    title: { display: true, text: '人形机器人市场规模预测' },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let unit = context.label.includes('中国') ? '亿元人民币' : '亿美元';
-                                let value = context.raw;
-                                if (context.label.includes('中国') && context.label.includes('2030')) value = 50; 
-                                if (context.label.includes('全球')) value = 200; 
-                                if (context.label.includes('2026')) value = 200; 
-                                 return `${context.label.split(' ')[0]}: ${value} ${unit.replace('亿元/亿美元', unit)}`;
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value, index, values) {
-                                return value + (this.chart.data.labels[index] && this.chart.data.labels[index].includes('中国') ? ' 亿元' : ' 亿美元');
-                            }
-                        }
-                    }
-                }
-            }
-        });
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', applyLanguage);
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </body>
 </html>

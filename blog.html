@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客 - EurekaTalk</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth; /* For anchor links within the page */
+        }
+        .hidden-lang {
+            display: none !important;
+        }
+        .lang-btn.active {
+            background-color: #2563eb; /* blue-600 */
+            color: white;
+        }
+        .page-title-gradient {
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .blog-post-card {
+            background-color: white;
+            border-radius: 0.75rem; /* 12px */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            overflow: hidden; /* Ensures image corners are also rounded if image is direct child */
+        }
+        .blog-post-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <header class="bg-white shadow-md fixed w-full z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-600">
+                <a href="index.html">EurekaTalk</a>
+            </div>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="index.html#home" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                    <span lang="zh">首页</span>
+                    <span lang="en" class="hidden-lang">Home</span>
+                </a>
+                <a href="about.html" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                    <span lang="zh">关于我们</span>
+                    <span lang="en" class="hidden-lang">About Us</span>
+                </a>
+                <a href="services.html" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                    <span lang="zh">服务与洞察</span>
+                    <span lang="en" class="hidden-lang">Services & Insights</span>
+                </a>
+                <a href="blog.html" class="text-blue-600 font-semibold transition duration-300"> <span lang="zh">博客</span>
+                    <span lang="en" class="hidden-lang">Blog</span>
+                </a>
+                <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition duration-300">
+                    <span lang="zh">联系我</span>
+                    <span lang="en" class="hidden-lang">Contact</span>
+                </a>
+            </nav>
+            <div class="flex items-center">
+                <button id="lang-zh" class="lang-btn active text-sm px-3 py-1.5 rounded-l-md border border-gray-300 hover:bg-blue-500 hover:text-white transition-colors duration-200" onclick="switchLanguage('zh')">中文</button>
+                <button id="lang-en" class="lang-btn text-sm px-3 py-1.5 rounded-r-md border border-gray-300 border-l-0 hover:bg-blue-500 hover:text-white transition-colors duration-200" onclick="switchLanguage('en')">EN</button>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-gray-600 hover:text-blue-600 focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                </svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="md:hidden hidden bg-white shadow-lg">
+            <a href="index.html#home" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link">
+                <span lang="zh">首页</span>
+                <span lang="en" class="hidden-lang">Home</span>
+            </a>
+            <a href="about.html" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link">
+                <span lang="zh">关于我们</span>
+                <span lang="en" class="hidden-lang">About Us</span>
+            </a>
+            <a href="services.html" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link">
+                <span lang="zh">服务与洞察</span>
+                <span lang="en" class="hidden-lang">Services & Insights</span>
+            </a>
+            <a href="blog.html" class="block px-6 py-3 text-blue-600 bg-blue-50 font-semibold transition duration-300 mobile-nav-link"> <span lang="zh">博客</span>
+                <span lang="en" class="hidden-lang">Blog</span>
+            </a>
+            <a href="index.html#contact" class="block px-6 py-3 text-gray-600 hover:bg-blue-50 hover:text-blue-600 transition duration-300 mobile-nav-link">
+                <span lang="zh">联系我</span>
+                <span lang="en" class="hidden-lang">Contact</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-24 pb-16">
+        <section id="blog-list" class="py-16 px-6">
+            <div class="container mx-auto">
+                <div class="text-center mb-16">
+                    <h1 class="text-4xl md:text-5xl font-bold page-title-gradient mb-4">
+                        <span lang="zh">我们的博客</span>
+                        <span lang="en" class="hidden-lang">Our Blog</span>
+                    </h1>
+                    <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                        <span lang="zh">探索我们的最新文章、深度洞察和行业分析。</span>
+                        <span lang="en" class="hidden-lang">Explore our latest articles, deep dives, and industry analyses.</span>
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <article id="post-humanoid" class="blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/9ca3af/ffffff?text=人形机器人前沿" alt="人形机器人" class="w-full h-52 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">
+                                <span lang="zh">人形机器人：未来已来，还是任重道远？</span>
+                                <span lang="en" class="hidden-lang">Humanoid Robots: Future Now, or Long Road Ahead?</span>
+                            </h3>
+                            <p class="text-gray-500 text-xs mb-3">
+                                <span lang="zh">发布于：2025年5月22日</span>
+                                <span lang="en" class="hidden-lang">Published: May 22, 2025</span>
+                            </p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">
+                                <span lang="zh">从特斯拉的 Optimus 到波士顿动力的人形机器人，我们正见证着技术的飞速进步。它们会如何改变我们的工作与生活？本篇探讨当前进展、挑战及未来潜力。</span>
+                                <span lang="en" class="hidden-lang">From Tesla's Optimus to Boston Dynamics' humanoids, we're witnessing rapid technological advancements. How will they change our work and lives? This piece explores current progress, challenges, and future potential.</span>
+                            </p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">
+                                <span lang="zh">阅读全文 &rarr;</span>
+                                <span lang="en" class="hidden-lang">Read Full Article &rarr;</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article id="post-exoskeleton" class="blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/a5b4fc/ffffff?text=外骨骼技术突破" alt="外骨骼技术" class="w-full h-52 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">
+                                <span lang="zh">外骨骼技术：增强人类能力的边界</span>
+                                <span lang="en" class="hidden-lang">Exoskeleton Technology: Pushing Human Augmentation</span>
+                            </h3>
+                            <p class="text-gray-500 text-xs mb-3">
+                                <span lang="zh">发布于：2025年5月21日</span>
+                                <span lang="en" class="hidden-lang">Published: May 21, 2025</span>
+                            </p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">
+                                <span lang="zh">外骨骼不再仅限于科幻电影。它们在医疗康复、工业生产乃至军事领域的应用前景广阔，但相关的技术难题、伦理考量与社会接受度仍是重要议题。</span>
+                                <span lang="en" class="hidden-lang">Exoskeletons are no longer just sci-fi. Their applications in medical rehab, industry, and military are vast, yet technical hurdles, ethical considerations, and societal acceptance remain key topics.</span>
+                            </p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">
+                                <span lang="zh">阅读全文 &rarr;</span>
+                                <span lang="en" class="hidden-lang">Read Full Article &rarr;</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article id="post-ai-insights" class="blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/818cf8/ffffff?text=AI行业洞察" alt="AI行业洞察" class="w-full h-52 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">
+                                <span lang="zh">AI 行业观察：泡沫之下，真实价值何在？</span>
+                                <span lang="en" class="hidden-lang">AI Industry Insights: Real Value Beneath the Hype?</span>
+                            </h3>
+                            <p class="text-gray-500 text-xs mb-3">
+                                <span lang="zh">发布于：2025年5月20日</span>
+                                <span lang="en" class="hidden-lang">Published: May 20, 2025</span>
+                            </p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">
+                                <span lang="zh">生成式 AI 引爆市场，但可持续的商业模式和技术壁垒仍在探索中。我们如何辨别趋势，投资未来，并警惕潜在风险？</span>
+                                <span lang="en" class="hidden-lang">Generative AI has ignited the market, but sustainable business models and tech barriers are still being explored. How do we discern trends, invest in the future, and stay wary of potential risks?</span>
+                            </p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">
+                                <span lang="zh">阅读全文 &rarr;</span>
+                                <span lang="en" class="hidden-lang">Read Full Article &rarr;</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <article id="post-first-zh" lang="zh" class="blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/d1d5db/333333?text=博客文章1封面" alt="博客文章1" class="w-full h-52 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">我的第一篇中文博客</h3>
+                            <p class="text-gray-500 text-xs mb-3">发布于：2024年5月20日</p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">这是我的第一篇中文博客文章的摘要。在这里，我将分享关于[某个主题]的初步想法和观察，并探讨其潜在影响...</p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">阅读全文 &rarr;</a>
+                        </div>
+                    </article>
+                    <article id="post-first-en" lang="en" class="hidden-lang blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/d1d5db/333333?text=Blog+Post+1+Cover" alt="Blog Post 1" class="w-full h-52 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">My First English Blog Post</h3>
+                            <p class="text-gray-500 text-xs mb-3">Published: May 20, 2024</p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">This is a summary of my first English blog post. Here, I will share initial thoughts and observations on [some topic] and discuss its potential impact...</p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">Read Full Article &rarr;</a>
+                        </div>
+                    </article>
+
+                    <article id="post-example-en" lang="en" class="blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/d1d5db/333333?text=Blog+Post+2+Cover" alt="Blog Post 2" class="w-full h-52 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">English Blog Post Example</h3>
+                            <p class="text-gray-500 text-xs mb-3">Published: March 18, 2024</p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">An example of an English blog post discussing [another interesting topic]. We delve into the specifics and explore future implications for the industry and society...</p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">Read Full Article &rarr;</a>
+                        </div>
+                    </article>
+                    <article id="post-example-zh" lang="zh" class="hidden-lang blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/d1d5db/333333?text=博客文章2封面" alt="博客文章2" class="w-full h-52 object-cover">
+                        <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">英文博客示例（中文版）</h3>
+                            <p class="text-gray-500 text-xs mb-3">发布于：2024年3月18日</p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">一篇英文博客文章的示例，讨论了[另一个有趣的主题]。我们深入探讨细节并展望未来的影响，针对行业和社会层面...</p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">阅读全文 &rarr;</a>
+                        </div>
+                    </article>
+
+                    <article id="post-future-ai" class="blog-post-card flex flex-col">
+                        <img src="https://placehold.co/400x250/d1d5db/333333?text=博客文章3封面" alt="博客文章3" class="w-full h-52 object-cover">
+                         <div class="p-6 flex flex-col flex-grow">
+                            <h3 class="text-xl font-semibold mb-2 text-blue-700">
+                                <span lang="zh">未来展望：AI与生活</span>
+                                <span lang="en" class="hidden-lang">Future Outlook: AI & Life</span>
+                            </h3>
+                            <p class="text-gray-500 text-xs mb-3">
+                                <span lang="zh">发布于：2024年6月1日</span>
+                                <span lang="en" class="hidden-lang">Published: June 1, 2024</span>
+                            </p>
+                            <p class="text-gray-700 text-sm leading-relaxed flex-grow">
+                                <span lang="zh">探讨人工智能技术将如何塑造我们未来的日常生活、工作方式和社会结构。从智能家居到自动驾驶，再到个性化医疗，AI 的潜力无限。</span>
+                                <span lang="en" class="hidden-lang">Exploring how artificial intelligence technology will shape our future daily lives, work styles, and social structures. From smart homes to autonomous driving and personalized medicine, AI's potential is limitless.</span>
+                            </p>
+                            <a href="#" class="mt-4 text-blue-600 hover:text-blue-800 font-medium self-start">
+                                <span lang="zh">阅读全文 &rarr;</span>
+                                <span lang="en" class="hidden-lang">Read Full Article &rarr;</span>
+                            </a>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="mt-16 flex justify-center">
+                    <nav aria-label="Pagination">
+                        <ul class="inline-flex items-center -space-x-px">
+                            <li>
+                                <a href="#" class="py-2 px-3 ml-0 leading-tight text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                                    <span lang="zh">上一页</span>
+                                    <span lang="en" class="hidden-lang">Previous</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" aria-current="page" class="z-10 py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-blue-300 hover:bg-blue-100 hover:text-blue-700">1</a>
+                            </li>
+                            <li>
+                                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700">2</a>
+                            </li>
+                            <li>
+                                <a href="#" class="py-2 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700">
+                                    <span lang="zh">下一页</span>
+                                    <span lang="en" class="hidden-lang">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-gray-300 py-12 px-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; <span id="currentYear"></span> EurekaTalk. 
+                <span lang="zh">版权所有。</span>
+                <span lang="en" class="hidden-lang">All Rights Reserved.</span>
+            </p>
+            <p class="text-sm mt-2">
+                <span lang="zh">由 <a href="https://github.com" class="hover:text-blue-400">GitHub Pages</a> 强力驱动</span>
+                <span lang="en" class="hidden-lang">Powered by <a href="https://github.com" class="hover:text-blue-400">GitHub Pages</a></span>
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Language Switching Logic
+        const defaultLang = 'zh';
+        let currentLang = localStorage.getItem('eurekatalk-lang') || defaultLang;
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('eurekatalk-lang', lang);
+            applyLanguage();
+        }
+
+        function applyLanguage() {
+            document.documentElement.lang = currentLang;
+            document.querySelectorAll('[lang]').forEach(el => {
+                // Special handling for blog posts that should show based on selected language
+                if (el.classList.contains('blog-post-card') || (el.closest('.blog-post-card') && el.getAttribute('lang'))) {
+                     if (el.getAttribute('lang') === currentLang) {
+                        el.classList.remove('hidden-lang');
+                        // Ensure parent card is also shown if it was hidden
+                        if(el.closest('.blog-post-card.hidden-lang')) {
+                            el.closest('.blog-post-card.hidden-lang').classList.remove('hidden-lang');
+                        }
+                    } else {
+                        el.classList.add('hidden-lang');
+                        // If a blog card has mixed lang attributes, this ensures the card itself is hidden if its primary lang content is hidden
+                        if(el.closest('.blog-post-card') && el.closest('.blog-post-card').getAttribute('lang') !== currentLang && el.closest('.blog-post-card').getAttribute('lang') !== null) {
+                           // This case might be complex if a card itself has a lang attribute different from its children.
+                           // For simplicity, we assume cards are either neutral or their lang matches their main content.
+                        }
+                    }
+                } else { // General language switching for other elements
+                    if (el.getAttribute('lang') === currentLang) {
+                        el.classList.remove('hidden-lang');
+                    } else {
+                        el.classList.add('hidden-lang');
+                    }
+                }
+            });
+            
+            const zhBtn = document.getElementById('lang-zh');
+            const enBtn = document.getElementById('lang-en');
+            if (zhBtn && enBtn) {
+                if (currentLang === 'zh') {
+                    zhBtn.classList.add('active');
+                    enBtn.classList.remove('active');
+                } else {
+                    enBtn.classList.add('active');
+                    zhBtn.classList.remove('active');
+                }
+            }
+            
+            if (currentLang === 'zh') {
+                document.title = "博客 - EurekaTalk";
+            } else {
+                document.title = "Blog - EurekaTalk";
+            }
+
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+        
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+        });
+
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', applyLanguage);
+    </script>
+
+</body>
+</html>
