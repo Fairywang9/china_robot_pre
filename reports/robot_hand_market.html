@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵巧手技术市场研究信息图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- 
+        Infographic Plan:
+        Overall Theme: 全球灵巧手技术市场洞察与未来展望 (Global Dexterous Hand Technology Market Insights and Future Outlook)
+        Language: Chinese (Simplified)
+        Color Palette: Brilliant Blues (Primary Dark: #0A2463, Primary Medium: #3E92CC, Primary Light: #D8E4FF, Accent: #14B8A6 (Teal))
+
+        Sections:
+        1.  引言 (Introduction)
+        2.  市场概览 (Market Overview)
+            - 全球市场规模与预测 (2024 vs 2031): Chart.js Line Chart.
+            - 年复合增长率 (CAGR): Single Big Number.
+            - 主要区域市场增长潜力: Chart.js Grouped Bar Chart.
+        3.  核心传动技术剖析 (Analysis of Core Transmission Technologies)
+            - 连杆驱动 vs. 腱绳驱动对比表: HTML Table.
+            - 简易结构示意图: HTML/CSS.
+        4.  主要市场参与者 (Key Market Players)
+            - HTML Cards for key players.
+        5.  关键应用领域 (Key Application Areas)
+            - Styled HTML List with Unicode Icons.
+        6.  未来趋势与挑战 (Future Trends and Challenges)
+            - Styled HTML lists for trends and challenges.
+        7.  结语 (Conclusion)
+
+        Visualization Choices & Justifications (Confirming NO SVG, NO MERMAID JS):
+        - Market Size Trend (2024-2031): Line Chart (Chart.js, Canvas). Goal: Change/Inform. Justification: Shows growth trend clearly. NO SVG.
+        - CAGR: Large Text. Goal: Inform. Justification: Highlights key metric. NO SVG.
+        - Regional Market Comparison: Grouped Bar Chart (Chart.js, Canvas). Goal: Compare. Justification: Compares absolute values and growth across regions. NO SVG.
+        - Linkage vs. Tendon Comparison: HTML Table. Goal: Compare/Organize. Justification: Best for feature-by-feature comparison. NO SVG.
+        - Simplified Structure Diagram: HTML/CSS boxes and lines. Goal: Organize/Inform. Justification: Visual aid for basic structure. NO SVG.
+        - Key Players: HTML Cards. Goal: Inform/Organize. Justification: Presents player info clearly. NO SVG.
+        - Application Areas: Styled HTML List with Unicode Icons. Goal: Inform/Organize. Justification: Visually appealing list. NO SVG.
+        - Trends/Challenges: Styled HTML Lists. Goal: Inform/Organize. Justification: Clear presentation. NO SVG.
+
+        Confirmation:
+        - NO Mermaid JS was used.
+        - NO SVG graphics were used. All visuals are Chart.js (Canvas), HTML/CSS, or Unicode characters.
+        - Chosen Color Palette: "Brilliant Blues" (Deep Blue: #0A2463, Medium Blue: #3E92CC, Light Blue: #D8E4FF, Accent Teal: #14B8A6).
+    -->
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            background-color: #F0F4FA; /* Lighter than D8E4FF for main bg */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .text-deep-blue { color: #0A2463; }
+        .bg-deep-blue { background-color: #0A2463; }
+        .text-medium-blue { color: #3E92CC; }
+        .bg-medium-blue { background-color: #3E92CC; }
+        .text-light-blue { color: #D8E4FF; }
+        .bg-light-blue { background-color: #D8E4FF; } /* Use for card backgrounds */
+        .text-accent-teal { color: #14B8A6; }
+        .bg-accent-teal { background-color: #14B8A6; }
+        .border-accent-teal { border-color: #14B8A6; }
+
+        .section-title {
+            font-size: 2.25rem; /* text-4xl */
+            font-weight: 700;
+            color: #0A2463; /* text-deep-blue */
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .section-subtitle {
+            font-size: 1.125rem; /* text-lg */
+            color: #3E92CC; /* text-medium-blue */
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .card {
+            background-color: #FFFFFF; /* White cards for better contrast with light blue bg */
+            border-radius: 0.75rem; /* rounded-xl */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-lg */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.04);
+        }
+        .stat-number {
+            font-size: 3rem; /* text-5xl */
+            font-weight: 800; /* font-extrabold */
+            color: #14B8A6; /* text-accent-teal */
+        }
+        .stat-label {
+            font-size: 1rem; /* text-base */
+            color: #0A2463; /* text-deep-blue */
+            margin-top: 0.5rem;
+        }
+        .table-header {
+            background-color: #3E92CC; /* bg-medium-blue */
+            color: #FFFFFF;
+            font-weight: 600;
+        }
+        .table-cell {
+            padding: 0.75rem 1rem; /* py-3 px-4 */
+            border-bottom: 1px solid #D8E4FF; /* border-light-blue */
+        }
+        .list-item-icon {
+            color: #14B8A6; /* text-accent-teal */
+            margin-right: 0.75rem; /* mr-3 */
+            font-size: 1.5rem; /* text-2xl */
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-deep-blue py-12 text-white text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">全球灵巧手技术洞察</h1>
+            <p class="text-xl md:text-2xl text-light-blue">主流结构、市场格局与未来展望</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+
+        <section id="introduction" class="py-8 md:py-12">
+            <h2 class="section-title">开启智能操作新纪元：灵巧手技术概览</h2>
+            <p class="section-subtitle">
+                灵巧手是现代机器人技术的关键组成部分，赋予机器人精细操作和与环境灵活交互的能力。本报告将深入剖析基于连杆传动和腱绳传动的主流结构，洞察其技术特点、市场格局及未来趋势。
+            </p>
+            <div class="card text-center">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    灵巧操控（Dexterous Manipulation）的核心在于多个操作器（如手指）协同合作，以物体为中心进行抓取和操控，要求对力和运动进行精确控制。灵巧手（Dexterous Hand）通常指具有多个手指、多个自由度的机器人末端执行器，其设计借鉴人手结构与功能，旨在实现对不同物体的灵活抓取与复杂操作。在非结构化环境及与人类工具交互的任务中，灵巧手的重要性尤为突出。
+                </p>
+            </div>
+        </section>
+
+        <section id="market-overview" class="py-8 md:py-12 bg-gray-50 rounded-xl p-4 md:p-8">
+            <h2 class="section-title">市场脉搏：高速增长与广阔前景</h2>
+            <p class="section-subtitle">
+                全球灵巧手市场正经历前所未有的高速增长，人工智能技术的飞速发展、传感器技术的成熟以及人形机器人领域的战略投入是主要驱动力。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-deep-blue mb-4 text-center">全球市场规模与预测</h3>
+                    <div class="chart-container h-64 sm:h-72 md:h-80 max-w-lg">
+                        <canvas id="globalMarketChart"></canvas>
+                    </div>
+                    <p class="text-sm text-gray-600 mt-4 text-center">数据来源：报告第5.1节。展示了从2024年到2031年的市场规模增长预测。</p>
+                </div>
+                <div class="card text-center">
+                    <h3 class="text-2xl font-semibold text-deep-blue mb-6">年复合增长率 (CAGR)</h3>
+                    <div class="stat-number">68.7%</div>
+                    <div class="stat-label">(2025-2031年收入预测)</div>
+                    <p class="text-sm text-gray-600 mt-6">全球市场销量年复合增长率预计更高达89.29%。</p>
+                </div>
+            </div>
+            <div class="card mt-8">
+                <h3 class="text-2xl font-semibold text-deep-blue mb-4 text-center">主要区域市场增长潜力 (2024 vs 2031预测)</h3>
+                <div class="chart-container h-72 sm:h-80 md:h-96 max-w-3xl">
+                    <canvas id="regionalMarketChart"></canvas>
+                </div>
+                <p class="text-sm text-gray-600 mt-4 text-center">数据来源：报告第5.1节，表2。亚太地区增长尤为迅猛，中国市场潜力巨大。</p>
+            </div>
+        </section>
+
+        <section id="core-technologies" class="py-8 md:py-12">
+            <h2 class="section-title">技术核心：连杆与腱绳的博弈</h2>
+            <p class="section-subtitle">
+                灵巧手的操作稳定性和灵活性在很大程度上取决于其传动系统。连杆驱动和腱绳驱动是当前的主流方案，各有千秋。
+            </p>
+            <div class="card overflow-x-auto">
+                <h3 class="text-2xl font-semibold text-deep-blue mb-4 text-center">连杆驱动 vs. 腱绳驱动</h3>
+                <table class="min-w-full">
+                    <thead>
+                        <tr>
+                            <th class="table-header table-cell text-left">特性</th>
+                            <th class="table-header table-cell text-left">连杆驱动 (Linkage-Driven)</th>
+                            <th class="table-header table-cell text-left">腱绳驱动 (Tendon-Driven)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-semibold table-cell text-deep-blue">灵活性/自适应性</td>
+                            <td class="table-cell">一般较低，刚性结构限制适应性</td>
+                            <td class="table-cell">较高，柔性腱绳易于适应物体形状</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold table-cell text-deep-blue">刚性/力输出</td>
+                            <td class="table-cell">通常较高，直接力传递</td>
+                            <td class="table-cell">取决于材料和驱动器，远置可高力输出但柔性影响刚性</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold table-cell text-deep-blue">精度/可重复性</td>
+                            <td class="table-cell">通常较好，弹性变形和间隙较小</td>
+                            <td class="table-cell">可能受弹性、摩擦和迟滞影响，精度相对较低</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold table-cell text-deep-blue">手部重量/紧凑性</td>
+                            <td class="table-cell">多连杆可能增加重量和体积</td>
+                            <td class="table-cell">通常较轻、更紧凑，因驱动器可远置</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold table-cell text-deep-blue">控制复杂性</td>
+                            <td class="table-cell">运动学相对明确，但高自由度耦合设计复杂</td>
+                            <td class="table-cell">摩擦、弹性等因素导致控制模型复杂</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold table-cell text-deep-blue">耐久性/维护</td>
+                            <td class="table-cell">设计良好时较坚固；关节磨损是主要问题</td>
+                            <td class="table-cell">腱绳易磨损、断裂；布线和张紧增加维护难度</td>
+                        </tr>
+                         <tr>
+                            <td class="font-semibold table-cell text-deep-blue">典型应用</td>
+                            <td class="table-cell">工业（高负载、高精度）、假肢</td>
+                            <td class="table-cell">人形机器人、科研（高灵巧性）、服务机器人</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p class="text-sm text-gray-600 mt-4">信息来源：报告第3.3节，表1。选择何种结构是在仿生灵活性与结构化刚性之间的权衡。</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                <div class="card">
+                    <h4 class="text-xl font-semibold text-deep-blue mb-3 text-center">连杆驱动结构示意</h4>
+                    <div class="flex flex-col items-center justify-center p-4 border border-dashed border-medium-blue rounded-lg h-48 bg-light-blue/30">
+                        <div class="flex items-center space-x-2">
+                            <div class="p-2 border-2 border-medium-blue rounded bg-white shadow">电机</div>
+                            <div class="w-8 h-1 bg-medium-blue"></div>
+                            <div class="p-2 border-2 border-medium-blue rounded bg-white shadow">刚性连杆</div>
+                            <div class="w-8 h-1 bg-medium-blue"></div>
+                            <div class="p-2 border-2 border-medium-blue rounded bg-white shadow">关节</div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">简化示意图：通过刚性连杆传递动力。</p>
+                    </div>
+                     <p class="text-gray-700 mt-3 leading-relaxed"><strong>优势：</strong>高刚性、高承载能力、运动精度高。<strong>劣势：</strong>灵活性相对较低，复杂设计重量可能偏大。</p>
+                </div>
+                <div class="card">
+                    <h4 class="text-xl font-semibold text-deep-blue mb-3 text-center">腱绳驱动结构示意</h4>
+                     <div class="flex flex-col items-center justify-center p-4 border border-dashed border-accent-teal rounded-lg h-48 bg-light-blue/30">
+                        <div class="flex items-center space-x-2">
+                            <div class="p-2 border-2 border-accent-teal rounded bg-white shadow">电机 (可远置)</div>
+                            <div class="w-8 h-1 bg-accent-teal"></div>
+                            <div class="p-2 border-2 border-accent-teal rounded bg-white shadow">柔性腱绳</div>
+                            <div class="w-8 h-1 bg-accent-teal"></div>
+                            <div class="p-2 border-2 border-accent-teal rounded bg-white shadow">关节/滑轮</div>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">简化示意图：通过柔性腱绳传递动力。</p>
+                    </div>
+                    <p class="text-gray-700 mt-3 leading-relaxed"><strong>优势：</strong>高灵活性、高自适应性、轻巧紧凑。<strong>劣势：</strong>摩擦、弹性迟滞、控制复杂、耐久性维护挑战。</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="key-players" class="py-8 md:py-12 bg-gray-50 rounded-xl p-4 md:p-8">
+            <h2 class="section-title">群雄逐鹿：全球灵巧手主要厂商</h2>
+            <p class="section-subtitle">
+                全球灵巧手市场汇集了一批技术领先的国际企业和研究机构，同时中国本土力量也在迅速崛起。
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-deep-blue mb-2">Shadow Robot Company</h3>
+                    <p class="text-sm text-medium-blue mb-1">英国 - 腱绳驱动</p>
+                    <p class="text-gray-700 text-sm">以高度灵巧的Shadow Dexterous Hand闻名，拥有多达20个主动自由度，面向科研和AI研究。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-deep-blue mb-2">SCHUNK</h3>
+                    <p class="text-sm text-medium-blue mb-1">德国 - 混合驱动</p>
+                    <p class="text-gray-700 text-sm">提供SVH五指灵巧手，特点是仿生设计、高度集成，适用于工业和服务机器人。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-deep-blue mb-2">Barrett Technology</h3>
+                    <p class="text-sm text-medium-blue mb-1">美国 - 混合驱动</p>
+                    <p class="text-gray-700 text-sm">生产BarrettHand BH8系列，以自容纳设计和良好适应性闻名，专注柔性自动化。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-deep-blue mb-2">特斯拉 (Tesla)</h3>
+                    <p class="text-sm text-medium-blue mb-1">美国 - 腱绳驱动</p>
+                    <p class="text-gray-700 text-sm">为其Optimus人形机器人研发灵巧手，采用金属腱绳，目标是大规模量产和成本控制。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-deep-blue mb-2">因时机器人 (Inspire Robots)</h3>
+                    <p class="text-sm text-medium-blue mb-1">中国 - 连杆驱动</p>
+                    <p class="text-gray-700 text-sm">专注于连杆驱动灵巧手（如RH系列、FTP系列），强调力位混合控制和耐用性。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-deep-blue mb-2">灵心巧手</h3>
+                    <p class="text-sm text-medium-blue mb-1">中国 - 连杆/腱绳驱动</p>
+                    <p class="text-gray-700 text-sm">Linker Hand系列涵盖两种结构，追求高自由度，目标市场包括工业和假肢。</p>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mt-6 text-center">信息来源：报告第6节。市场竞争激烈，技术差异化和生态构建是关键策略。</p>
+        </section>
+
+        <section id="applications" class="py-8 md:py-12">
+            <h2 class="section-title">赋能万千：灵巧手的广阔应用</h2>
+            <p class="section-subtitle">
+                灵巧手的应用领域广泛且在不断拓展，为传统自动化难以解决的复杂任务提供了新的可能性。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card flex items-start">
+                    <span class="list-item-icon">🏭</span>
+                    <div>
+                        <h4 class="text-lg font-semibold text-deep-blue mb-1">工业与制造业</h4>
+                        <p class="text-gray-700 text-sm">精密装配、无序分拣、质量检测、3C电子产品制造。</p>
+                    </div>
+                </div>
+                <div class="card flex items-start">
+                    <span class="list-item-icon">⚕️</span>
+                    <div>
+                        <h4 class="text-lg font-semibold text-deep-blue mb-1">医疗与假肢</h4>
+                        <p class="text-gray-700 text-sm">外科手术辅助、康复机器人、仿生假肢。</p>
+                    </div>
+                </div>
+                <div class="card flex items-start">
+                    <span class="list-item-icon">📦</span>
+                    <div>
+                        <h4 class="text-lg font-semibold text-deep-blue mb-1">物流仓储</h4>
+                        <p class="text-gray-700 text-sm">包裹处理、订单拣选与履行。</p>
+                    </div>
+                </div>
+                <div class="card flex items-start">
+                    <span class="list-item-icon">🔬</span>
+                    <div>
+                        <h4 class="text-lg font-semibold text-deep-blue mb-1">科研教育</h4>
+                        <p class="text-gray-700 text-sm">人工智能、机器人操作、人机交互等领域的研究平台。</p>
+                    </div>
+                </div>
+                <div class="card flex items-start">
+                    <span class="list-item-icon">🏠</span>
+                    <div>
+                        <h4 class="text-lg font-semibold text-deep-blue mb-1">服务机器人与家庭应用</h4>
+                        <p class="text-gray-700 text-sm">老年人陪护、残疾人辅助、家务处理。</p>
+                    </div>
+                </div>
+                <div class="card flex items-start">
+                    <span class="list-item-icon">⚠️</span>
+                    <div>
+                        <h4 class="text-lg font-semibold text-deep-blue mb-1">危险环境与特种作业</h4>
+                        <p class="text-gray-700 text-sm">远程操作、爆炸物处理、核工业、空间探索。</p>
+                    </div>
+                </div>
+            </div>
+             <p class="text-sm text-gray-600 mt-6 text-center">信息来源：报告第5.4节。灵巧手正推动各行业实现新一轮的自动化升级。</p>
+        </section>
+
+        <section id="future-outlook" class="py-8 md:py-12 bg-gray-50 rounded-xl p-4 md:p-8">
+            <h2 class="section-title">展望未来：机遇与挑战并存</h2>
+            <p class="section-subtitle">
+                灵巧手技术前景广阔，但也面临成本、鲁棒性、控制算法等方面的挑战。技术创新和应用拓展将是未来的主旋律。
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-deep-blue mb-4 text-center">塑造未来的关键技术趋势</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><span class="list-item-icon">🧬</span>深度仿生与拟人化</li>
+                        <li class="flex items-center"><span class="list-item-icon">🦾</span>软体机器人技术融合</li>
+                        <li class="flex items-center"><span class="list-item-icon">🧠</span>人工智能驱动的控制与学习</li>
+                        <li class="flex items-center"><span class="list-item-icon">👁️</span>增强型感知技术 (尤其触觉)</li>
+                        <li class="flex items-center"><span class="list-item-icon">🧩</span>模块化与定制化</li>
+                        <li class="flex items-center"><span class="list-item-icon">🔩</span>材料科学与驱动技术的进步</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-2xl font-semibold text-deep-blue mb-4 text-center">亟待克服的主要挑战</h3>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center"><span class="list-item-icon">💰</span>成本控制与大规模应用</li>
+                        <li class="flex items-center"><span class="list-item-icon">🛠️</span>鲁棒性、可靠性与维护</li>
+                        <li class="flex items-center"><span class="list-item-icon">💻</span>控制算法的成熟度与泛化能力</li>
+                        <li class="flex items-center"><span class="list-item-icon">🔋</span>能源效率与功率密度</li>
+                        <li class="flex items-center"><span class="list-item-icon">🌉</span>仿真到现实的鸿沟</li>
+                        <li class="flex items-center"><span class="list-item-icon">🔗</span>标准化与互操作性</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="text-sm text-gray-600 mt-6 text-center">信息来源：报告第7.1节和7.2节。人形机器人的发展正加速整个灵巧操控技术的成熟和成本优化。</p>
+        </section>
+
+        <section id="conclusion" class="py-8 md:py-12 text-center">
+            <h2 class="section-title">灵巧之手，智创未来</h2>
+            <div class="card max-w-3xl mx-auto">
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    灵巧手技术正站在一个历史性的发展节点。连杆与腱绳传动各有优势，市场在人形机器人等因素驱动下高速增长。尽管面临成本和可靠性等挑战，但随着AI、传感和材料技术的不断突破，灵巧手有望深刻变革制造、医疗、服务等众多行业，开启智能操作的新时代。成功驾驭性能、成本与可靠性之间的复杂平衡，并针对高价值应用场景持续创新，将是未来市场领导者胜出的关键。
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-deep-blue text-light-blue py-6 text-center text-sm">
+        <p>&copy; 2025 灵巧手技术市场研究信息图。基于调研报告生成。</p>
+    </footer>
+
+    <script>
+        function wrapLabel(label, maxWidth) {
+            if (!label) return '';
+            if (label.length <= maxWidth) {
+                return label;
+            }
+            const words = String(label).split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            if (currentLine.trim().length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines.length > 0 ? lines : [String(label)];
+        }
+
+        const chartTooltipConfig = {
+            plugins: {
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            if (!item || !item.chart || !item.chart.data || !item.chart.data.labels) return '';
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return String(label);
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Global Market Chart
+        const globalMarketCtx = document.getElementById('globalMarketChart').getContext('2d');
+        new Chart(globalMarketCtx, {
+            type: 'line',
+            data: {
+                labels: ['2024', '2031 (预测)'],
+                datasets: [{
+                    label: '全球市场规模 (亿美元)',
+                    data: [0.927, 50.38], // 9270万美元 = 0.927亿美元, 50.38亿美元
+                    borderColor: '#14B8A6', // Accent Teal
+                    backgroundColor: 'rgba(20, 184, 166, 0.1)',
+                    fill: true,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '市场规模 (亿美元)' }
+                    }
+                },
+                ...chartTooltipConfig
+            }
+        });
+
+        // Regional Market Chart
+        const regionalMarketCtx = document.getElementById('regionalMarketChart').getContext('2d');
+        const regionalLabels = ['北美', '欧洲', '亚太地区'];
+        new Chart(regionalMarketCtx, {
+            type: 'bar',
+            data: {
+                labels: regionalLabels.map(label => wrapLabel(label, 16)),
+                datasets: [
+                    {
+                        label: '2024年市场规模 (亿美元)',
+                        data: [0.2526, 0.1963, 0.4420], // 2526万, 1963万, 4420万
+                        backgroundColor: '#3E92CC', // Medium Blue
+                    },
+                    {
+                        label: '2031年预测规模 (亿美元)',
+                        data: [12.94, 10.38, 25.30], // 12.94亿, 10.38亿, 25.30亿
+                        backgroundColor: '#14B8A6', // Accent Teal
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { display: true, text: '市场规模 (亿美元)' }
+                    },
+                    x: { ticks: { callback: function(value, index, values) {
+                        // This ensures wrapped labels are displayed correctly on the x-axis
+                        const label = this.getLabelForValue(value);
+                        return Array.isArray(label) ? label : wrapLabel(label,10) ; // Wrap again if needed for axis display
+                    }}}
+                },
+                 ...chartTooltipConfig
+            }
+        });
+    </script>
+</body>
+</html>

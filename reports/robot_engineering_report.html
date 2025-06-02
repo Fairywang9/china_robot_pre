@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>机器人动力关节行业趋势与市场研究信息图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans SC', 'Inter', sans-serif;
+            background-color: #f0f4f8; /* 淡雅的背景色 */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* 限制图表最大宽度 */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* 基础高度 */
+            max-height: 400px; /* 最大高度 */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        @media (min-width: 1024px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+        .kpi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .section-title {
+            font-size: 1.875rem; /* 2xl */
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #118AB2; /* 主题色 - 强蓝色 */
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.5rem; /* rounded-lg */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+            padding: 1.5rem; /* p-6 */
+            margin-bottom: 1.5rem; /* mb-6 */
+        }
+        .table-header {
+            background-color: #118AB2; /* 主题色 - 强蓝色 */
+            color: white;
+            font-weight: 600;
+        }
+        .table-cell {
+            padding: 0.75rem;
+            border: 1px solid #e2e8f0; /* Tailwind gray-300 */
+        }
+        .flow-item {
+            border: 2px solid #06D6A0; /* 主题色 - 亮蓝绿色 */
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .flow-arrow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #118AB2; /* 主题色 - 强蓝色 */
+            margin: 0 0.5rem;
+        }
+        /* Energetic & Playful Palette:
+           #FF6B6B (Vibrant Pink/Red)
+           #FFD166 (Bright Yellow)
+           #06D6A0 (Bright Teal/Green)
+           #118AB2 (Strong Blue)
+           #EF476F (Another Pink/Magenta)
+           Background: #f0f4f8 (Light grayish blue)
+           Text: #374151 (Tailwind gray-700) or #118AB2 for headers
+        */
+    </style>
+<!--
+计划摘要：
+1.  引言：简要介绍机器人动力关节的重要性。
+2.  概览与分类：
+    * 动力关节定义与核心功能 (文本)
+    * 驱动源分类 (电动、液压、气动) - 使用 Chart.js 柱状图比较优缺点数量或关键指标，辅以文本描述。
+    * 驱动原理分类 (刚性、弹性、准直驱) - 使用 Chart.js 柱状图比较关键特性，辅以文本描述。
+3.  核心部件解析：
+    * 电机 (伺服、无框力矩、空心杯) - 卡片式展示，关键特性使用大数字或列表。
+    * 精密减速器 (谐波、RV、摆线、行星) - 使用 Chart.js 柱状图或雷达图对比关键参数 (如精度、刚度、承载)，辅以文本。
+    * 传感技术 (编码器、力/力矩传感器、本体感知) - 卡片式展示，突出关键技术点。
+    * 控制系统 - HTML/CSS 流程图展示典型架构，文本描述挑战与策略。
+4.  关键性能指标 (KPIs)：
+    * 展示数个核心KPI (如扭矩密度、功率密度、重复定位精度) - 使用 Chart.js 柱状图或大数字展示。
+    * KPI表格 (源报告表4) - HTML表格。
+5.  市场格局与应用：
+    * 市场增长驱动力与挑战 - HTML列表。
+    * 关键应用领域 - 卡片式布局，使用Unicode字符作为简单图标。
+    * 全球主要企业 (源报告表5) - HTML表格。
+6.  发展趋势与未来展望：
+    * 新兴技术 (下一代电机、减速器、智能材料、AI控制) - HTML/CSS 流程图或列表。
+    * 模块化、集成化、高功率密度趋势 - 文本配合简单示意图 (HTML/CSS)。
+    * 轻量化材料对比 (源报告表6) - HTML表格，并用 Chart.js 条形图对比密度。
+7.  结论：总结报告核心观点。
+
+可视化选择详情 (确认无SVG，无Mermaid JS):
+* 引言: 文本。目标: 告知。方式: HTML。
+* 动力关节定义与核心功能: 文本。目标: 告知。方式: HTML。
+* 驱动源分类对比 (表1):
+    * 数据点: 电动、液压、气动驱动的优缺点、应用。
+    * 目标: 比较。
+    * 可视化: HTML 表格 (Tailwind 风格化)。理由: 清晰对比多项文本特性。
+* 驱动原理分类对比 (表2):
+    * 数据点: 刚性、SEA、QDD的原理、优缺点、应用。
+    * 目标: 比较。
+    * 可视化: HTML 表格 (Tailwind 风格化)。理由: 清晰对比多项文本特性。
+* 核心部件 - 电机类型:
+    * 数据点: 伺服电机、无框力矩电机、空心杯电机特点。
+    * 目标: 告知/比较。
+    * 可视化: HTML 卡片 + 列表。理由: 结构化展示各类型特点。
+    * 空心杯电机效率 (70-90% vs 15-50%): Chart.js 条形图。目标: 比较。理由: 直观比较效率。
+* 核心部件 - 精密减速器对比 (表3):
+    * 数据点: 谐波、RV、摆线、行星减速器的特性对比。
+    * 目标: 比较。
+    * 可视化: HTML 表格 (Tailwind 风格化)。理由: 清晰对比多项文本特性。
+* 核心部件 - 传感技术:
+    * 数据点: 编码器、力/力矩传感器、本体感知。
+    * 目标: 告知。
+    * 可视化: HTML 卡片 + 列表。理由: 结构化展示技术特点。
+* 核心部件 - 控制系统架构:
+    * 数据点: 分层结构，挑战，策略。
+    * 目标: 组织。
+    * 可视化: 结构化HTML/CSS (Flexbox/Grid) 模拟流程图。理由: 展示层级关系，无SVG/Mermaid。
+* 关键性能指标 (KPIs):
+    * 功率密度对比 (刚性驱动器 200-300 W/kg, 生物肌肉 ~500 W/kg, QDD ~1416 W/kg): Chart.js 条形图。目标: 比较。理由: 直观展示数值差异。
+    * 重复定位精度 (Optimus, MS模组): 大数字文本。目标: 告知。
+    * KPIs 表格 (源报告表4): HTML 表格。目标: 组织。理由: 详细列出多项指标。
+* 市场增长驱动力/挑战:
+    * 数据点: 报告中列出的驱动力和挑战。
+    * 目标: 组织。
+    * 可视化: HTML 列表 (ul/li) + Tailwind 样式。理由: 清晰列点。
+* 关键应用领域:
+    * 数据点: 工业、人形、协作、医疗等。
+    * 目标: 告知。
+    * 可视化: HTML 卡片网格 + Unicode 字符图标。理由: 图文结合，易于快速理解。
+* 全球主要企业 (表5):
+    * 数据点: Tesla, Harmonic Drive, Nabtesco 等。
+    * 目标: 组织/比较。
+    * 可视化: HTML 表格 (Tailwind 风格化)。理由: 清晰展示企业信息。
+* 发展趋势 - 新兴技术:
+    * 数据点: 下一代电机、减速器、智能材料、AI控制。
+    * 目标: 组织。
+    * 可视化: HTML/CSS (Flexbox/Grid) 创建类似流程图或分支图的结构。理由: 展示关联性，无SVG/Mermaid。
+* 发展趋势 - 轻量化材料对比 (表6):
+    * 数据点: 铝合金、钛合金、CF/PEEK 等。
+    * 目标: 比较。
+    * 可视化: HTML 表格 (Tailwind 风格化)。
+    * 材料密度对比: Chart.js 条形图。目标: 比较。理由: 直观展示密度差异。
+* 结论: 文本。目标: 告知。方式: HTML。
+
+确认：以上所有可视化方案均不使用SVG或Mermaid JS。图表使用Chart.js (Canvas)，流程图/组织图使用HTML/CSS结构。
+选择的调色板: Energetic & Playful (#FF6B6B, #FFD166, #06D6A0, #118AB2, #EF476F)
+-->
+</head>
+<body class="text-gray-700">
+    <header class="bg-gradient-to-r from-[#118AB2] to-[#06D6A0] text-white p-8 text-center shadow-lg">
+        <h1 class="text-4xl font-bold mb-2">机器人动力关节：技术、市场与未来展望</h1>
+        <p class="text-xl">深入洞察核心驱动单元的创新与发展</p>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        
+        <section id="introduction" class="mb-12">
+            <div class="card">
+                <h2 class="section-title text-center">引言：机器人动力之源</h2>
+                <p class="text-lg leading-relaxed text-gray-600">
+                    机器人动力关节，作为机器人系统的核心驱动与运动执行单元，其技术水平直接决定了机器人的性能边界与应用潜力。它们如同机器人的“肌肉”与“关节”，赋予机器人执行复杂任务的能力。从传统的工业自动化到新兴的人形机器人、协作机器人，动力关节的技术演进正驱动着整个机器人产业的变革。本报告将深入剖析机器人动力关节的技术背景、全球市场格局、主要参与者、典型应用案例以及未来发展趋势，旨在为业界提供清晰的洞察与前瞻。
+                </p>
+            </div>
+        </section>
+
+        <section id="overview-classification" class="mb-12">
+            <h2 class="section-title text-center">概览与分类：解构动力关节</h2>
+            <div class="card mb-8">
+                <h3 class="text-2xl font-semibold mb-4 text-[#118AB2]">A. 定义、重要性与核心功能</h3>
+                <p class="mb-2">机器人动力关节是集成驱动、传动、传感及控制单元的模块化组件，是机器人实现各种姿态变换和力输出的关键。其核心功能包括：</p>
+                <ul class="list-disc list-inside space-y-1 text-gray-600">
+                    <li><strong>产生与传递力/力矩：</strong>驱动机器人连杆运动。</li>
+                    <li><strong>实现可控运动：</strong>精确控制关节的运动参数，实现精确轨迹规划。</li>
+                    <li><strong>支撑负载：</strong>承受机器人自身及作业负载。</li>
+                    <li><strong>感知与交互：</strong>感知关节状态及与环境的交互，为智能控制提供依据。</li>
+                </ul>
+                <p class="mt-4">动力关节的性能直接决定了机器人的作业范围、操作精度、动态性能和整体可靠性。</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-2xl font-semibold mb-4 text-[#118AB2]">B. 基于驱动源的分类</h3>
+                    <p class="mb-4 text-gray-600">驱动源是动力关节产生动力的根本，主要分为电动、液压和气动三种方式。它们各有优缺点，适用于不同的应用场景。</p>
+                    <div class="chart-container h-auto md:h-[450px]">
+                        <canvas id="driveSourceChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-500">上图简要对比了不同驱动源的关键特性。电动驱动因其高精度、高灵活性成为主流；液压驱动则以大输出功率见长；气动驱动成本低、结构简单。</p>
+                </div>
+
+                <div class="card">
+                    <h3 class="text-2xl font-semibold mb-4 text-[#118AB2]">C. 基于驱动原理的分类</h3>
+                    <p class="mb-4 text-gray-600">驱动原理的差异主要体现在关节的力学特性和控制方式上，是当前创新的核心。</p>
+                     <div class="chart-container h-auto md:h-[450px]">
+                        <canvas id="drivePrincipleChart"></canvas>
+                    </div>
+                    <p class="mt-4 text-sm text-gray-500">刚性驱动器追求高定位精度；弹性驱动器（如SEA）注重柔顺性和力控制；准直驱驱动器（QDD）则力求高带宽力控和高动态响应。</p>
+                </div>
+            </div>
+            
+            <div class="card mt-8 overflow-x-auto">
+                <h3 class="text-2xl font-semibold mb-4 text-[#118AB2]">表1：机器人动力关节驱动方式对比 (源报告)</h3>
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-cell text-left">特性</th>
+                            <th class="table-cell text-left">电动驱动</th>
+                            <th class="table-cell text-left">液压驱动</th>
+                            <th class="table-cell text-left">气动驱动</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr>
+                            <td class="table-cell font-medium">核心组件</td>
+                            <td class="table-cell">伺服电机、步进电机等</td>
+                            <td class="table-cell">液压缸、液压马达、泵、阀等</td>
+                            <td class="table-cell">气缸、气动马达、阀等</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell font-medium">优点</td>
+                            <td class="table-cell">精度高、响应快、控制灵活、易集成</td>
+                            <td class="table-cell">输出功率大、力/力矩密度高、爆发力强</td>
+                            <td class="table-cell">成本低、结构简单、动作速度快、柔顺性好</td>
+                        </tr>
+                        <tr>
+                            <td class="table-cell font-medium">缺点</td>
+                            <td class="table-cell">负载能力相对较弱（同体积）、成本可能较高</td>
+                            <td class="table-cell">易泄漏、对温度敏感、系统复杂、维护难</td>
+                            <td class="table-cell">精度低、输出力/力矩小、刚性差、需气源</td>
+                        </tr>
+                         <tr>
+                            <td class="table-cell font-medium">应用场景</td>
+                            <td class="table-cell">绝大多数机器人</td>
+                            <td class="table-cell">大型重载、特种机器人 (如Boston Dynamics Atlas)</td>
+                            <td class="table-cell">中小负荷、快速开关、夹取 (如FESTO产品)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="core-components" class="mb-12">
+            <h2 class="section-title text-center">核心部件深度解析</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card">
+                    <h4 class="text-xl font-semibold mb-3 text-[#EF476F]">1. 电机</h4>
+                    <p class="text-sm text-gray-600 mb-2">动力关节的“心脏”，提供原始动力。</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li><strong>伺服电机：</strong>主流选择，控制精确。</li>
+                        <li><strong>无框力矩电机：</strong>高扭矩密度，结构紧凑，人形机器人优选 (如Tesla Optimus)。</li>
+                        <li><strong>空心杯电机：</strong>高效率 (70-90%)，快速响应，适用于灵巧手。</li>
+                    </ul>
+                    <div class="mt-4 chart-container h-[200px]">
+                         <canvas id="motorEfficiencyChart"></canvas>
+                    </div>
+                    <p class="mt-2 text-xs text-gray-500 text-center">空心杯电机与传统铁芯电机效率对比</p>
+                </div>
+                <div class="card">
+                    <h4 class="text-xl font-semibold mb-3 text-[#FFD166]">2. 精密减速器</h4>
+                    <p class="text-sm text-gray-600 mb-2">增大扭矩、降低转速、提高精度。</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li><strong>谐波减速器：</strong>轻巧、高精度、零背隙，用于协作/人形机器人。</li>
+                        <li><strong>RV减速器：</strong>高刚性、大承载，用于工业机器人重载关节。</li>
+                        <li><strong>摆线针轮减速器：</strong>结构紧凑、承载高。</li>
+                        <li><strong>行星减速器：</strong>功率密度高、传动平稳。</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h4 class="text-xl font-semibold mb-3 text-[#06D6A0]">3. 传感技术</h4>
+                    <p class="text-sm text-gray-600 mb-2">赋予关节“感知”能力。</p>
+                    <ul class="list-disc list-inside space-y-1 text-sm">
+                        <li><strong>编码器：</strong>测量角度/速度，双编码器提升精度。</li>
+                        <li><strong>力/力矩传感器：</strong>直接测量交互力，实现柔顺控制。</li>
+                        <li><strong>本体感知：</strong>QDD中通过电机状态估算力矩，无需额外传感器。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card mt-8">
+                <h4 class="text-xl font-semibold mb-3 text-[#118AB2]">4. 控制系统：关节之“脑”</h4>
+                <p class="text-sm text-gray-600 mb-4">解析指令、处理传感信息、生成驱动信号。机器人控制面临非线性、多变量耦合、时变等挑战。</p>
+                <div class="flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <div class="flow-item w-full md:w-1/4">上位控制器 (机器人主控)</div>
+                    <div class="flow-arrow hidden md:block">➡️</div>
+                    <div class="flow-arrow block md:hidden self-center">⬇️</div>
+                    <div class="flow-item w-full md:w-1/4">高速总线 (CANopen/EtherCAT)</div>
+                    <div class="flow-arrow hidden md:block">➡️</div>
+                    <div class="flow-arrow block md:hidden self-center">⬇️</div>
+                    <div class="flow-item w-full md:w-1/4">关节伺服驱动器 (集成控制器)</div>
+                    <div class="flow-arrow hidden md:block">➡️</div>
+                    <div class="flow-arrow block md:hidden self-center">⬇️</div>
+                    <div class="flow-item w-full md:w-1/4">电机执行</div>
+                </div>
+                <p class="mt-4 text-sm text-gray-600">高级控制策略包括力控制、柔顺控制、阻抗控制及AI驱动的智能控制。驱动器控制频率要求高 (如人形机器人 ≥1000Hz)。</p>
+            </div>
+        </section>
+
+        <section id="kpis" class="mb-12">
+            <h2 class="section-title text-center">关键性能指标 (KPIs)</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                <div class="card text-center">
+                    <h4 class="text-lg font-semibold text-[#EF476F] mb-2">功率密度 (W/kg)</h4>
+                    <p class="kpi-value text-[#EF476F]">~1416</p>
+                    <p class="text-sm text-gray-500">(先进QDD设计)</p>
+                </div>
+                <div class="card text-center">
+                    <h4 class="text-lg font-semibold text-[#FFD166] mb-2">重复定位精度</h4>
+                    <p class="kpi-value text-[#FFD166]">0.001°</p>
+                    <p class="text-sm text-gray-500">(大象机器人MS模组)</p>
+                </div>
+                <div class="card text-center">
+                    <h4 class="text-lg font-semibold text-[#06D6A0] mb-2">驱动器控制频率</h4>
+                    <p class="kpi-value text-[#06D6A0]">≥1000 Hz</p>
+                    <p class="text-sm text-gray-500">(人形机器人规范)</p>
+                </div>
+            </div>
+            <div class="card">
+                 <h4 class="text-xl font-semibold mb-3 text-[#118AB2]">功率密度对比</h4>
+                <div class="chart-container">
+                    <canvas id="powerDensityChart"></canvas>
+                </div>
+                <p class="mt-2 text-xs text-gray-500 text-center">不同驱动器/系统功率密度对比 (W/kg)</p>
+            </div>
+            <div class="card mt-8 overflow-x-auto">
+                <h3 class="text-2xl font-semibold mb-4 text-[#118AB2]">表4：机器人动力关节关键性能指标 (KPIs) (源报告节选)</h3>
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="table-header">
+                        <tr>
+                            <th class="table-cell text-left">KPI (单位)</th>
+                            <th class="table-cell text-left">定义/描述</th>
+                            <th class="table-cell text-left">重要性/影响</th>
+                            <th class="table-cell text-left">参考值/目标示例</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        <tr><td class="table-cell font-medium">扭矩密度 (Nm/kg)</td><td class="table-cell">单位质量输出扭矩</td><td class="table-cell">轻量化、高负载的关键</td><td class="table-cell">-</td></tr>
+                        <tr><td class="table-cell font-medium">功率密度 (W/kg)</td><td class="table-cell">单位质量输出功率</td><td class="table-cell">衡量“爆发力”和效率</td><td class="table-cell">>150 (仿肌肉); QDD可达1416</td></tr>
+                        <tr><td class="table-cell font-medium">重复定位精度 (°, mm)</td><td class="table-cell">多次返回同一点位的一致性</td><td class="table-cell">精密操作的基础</td><td class="table-cell">0.001° (MS模组); ≤1mm (人形臂腕)</td></tr>
+                        <tr><td class="table-cell font-medium">响应速度/带宽 (Hz, ms)</td><td class="table-cell">对指令变化的快速响应能力</td><td class="table-cell">动态性能</td><td class="table-cell">驱动器控制频率≥1000Hz</td></tr>
+                        <tr><td class="table-cell font-medium">背隙 (arcmin, °)</td><td class="table-cell">换向时的空程</td><td class="table-cell">影响定位精度和稳定性</td><td class="table-cell">10 arcsec (MS模组)</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section id="market-application" class="mb-12">
+            <h2 class="section-title text-center">市场格局与应用</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">市场增长驱动力</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        <li>机器人应用领域持续拓展 (物流、医疗、服务等)</li>
+                        <li>全球自动化与智能化升级趋势</li>
+                        <li>人形机器人等先进平台研发热潮 (如Tesla Optimus)</li>
+                        <li>核心技术不断突破 (电机、减速器、传感、控制)</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">面临的挑战</h3>
+                    <ul class="list-disc list-inside space-y-1 text-gray-600">
+                        <li>核心零部件技术壁垒与成本控制</li>
+                        <li>集成设计的复杂性与标准化难题</li>
+                        <li>市场竞争加剧</li>
+                        <li>可靠性与耐久性验证周期长</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="card mt-8">
+                <h3 class="text-xl font-semibold mb-3 text-center text-[#118AB2]">关键应用领域</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 text-center">
+                    <div class="p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                        <span class="text-4xl mb-2 block">🏭</span> <p class="font-medium">工业机器人</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                        <span class="text-4xl mb-2 block">🤖</span> <p class="font-medium">人形机器人</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                        <span class="text-4xl mb-2 block">🤝</span> <p class="font-medium">协作机器人</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                        <span class="text-4xl mb-2 block">⚕️</span> <p class="font-medium">医疗机器人</p>
+                    </div>
+                    <div class="p-4 rounded-lg bg-gray-50 hover:shadow-lg transition-shadow">
+                        <span class="text-4xl mb-2 block">🚀</span> <p class="font-medium">航空航天</p>
+                    </div>
+                </div>
+                 <p class="mt-4 text-sm text-gray-600">新兴应用（尤其是人形机器人）对关节性能的极限追求，正倒逼上游核心部件的技术突破，并最终惠及整个产业链。</p>
+            </div>
+        </section>
+        
+        <section id="future-trends" class="mb-12">
+            <h2 class="section-title text-center">发展趋势与未来展望</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">新兴技术驱动</h3>
+                     <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li><strong>下一代电机：</strong>更高扭矩/功率密度，优化散热，提升效率。</li>
+                        <li><strong>先进减速器：</strong>更低背隙，更高刚性、效率、寿命，探索新材料新工艺。</li>
+                        <li><strong>智能材料与结构：</strong>可变刚度/阻尼，自感知，实现更高适应性。</li>
+                        <li><strong>AI驱动的控制：</strong>模型辨识补偿，智能力矩估算，自适应与强化学习控制，预测性维护。</li>
+                    </ul>
+                </div>
+                 <div class="card">
+                    <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">核心发展方向</h3>
+                     <ul class="list-disc list-inside space-y-2 text-gray-600">
+                        <li><strong>模块化：</strong>标准化接口，简化设计，降低成本。</li>
+                        <li><strong>集成化：</strong>电机、减速器、传感器、驱动器高度集成，减小体积重量。</li>
+                        <li><strong>高功率/扭矩密度：</strong>移动/人形机器人永恒追求。</li>
+                        <li><strong>轻量化：</strong>先进复合材料（如CF/PEEK）应用，提升动态性能。</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card mt-8">
+                <h3 class="text-xl font-semibold mb-3 text-[#118AB2]">轻量化材料密度对比 (g/cm³)</h3>
+                <div class="chart-container h-[300px]">
+                    <canvas id="materialDensityChart"></canvas>
+                </div>
+                <p class="mt-2 text-xs text-gray-500 text-center">CF/PEEK等先进复合材料在实现极致轻量化方面潜力巨大。</p>
+            </div>
+        </section>
+
+        <section id="conclusion" class="mb-12">
+             <div class="card bg-gradient-to-r from-[#06D6A0] to-[#118AB2] text-white">
+                <h2 class="text-3xl font-bold mb-4 text-center">结论：驱动未来的核心引擎</h2>
+                <p class="text-lg leading-relaxed">
+                    机器人动力关节的技术演进是整个机器人领域进步的关键。从刚性到柔顺，从简单定位到智能交互，动力关节正变得更强大、更智能、更适应复杂环境。核心部件的创新、模块化与集成化设计、新材料的应用以及AI的赋能，将共同塑造下一代动力关节的形态与能力。克服成本、可靠性、标准化等挑战，高性能动力关节将支撑机器人在更广泛领域实现突破性应用，成为驱动未来的核心引擎。
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center p-6 bg-gray-800 text-gray-300 text-sm">
+        <p>&copy; 2025 机器人动力关节调研报告信息图。根据提供资料编制。</p>
+    </footer>
+
+    <script>
+        const CHART_COLORS = {
+            red: '#FF6B6B',
+            orange: '#FFA500', // Adjusted for better visibility if #FFD166 is too light for some charts
+            yellow: '#FFD166',
+            green: '#06D6A0',
+            blue: '#118AB2',
+            purple: '#7A4EBF', // Added for more variety
+            pink: '#EF476F',
+            grey: '#CBD5E1' // Tailwind gray-300
+        };
+
+        const CHART_BG_COLORS_ALPHA = {
+            red: 'rgba(255, 107, 107, 0.6)',
+            orange: 'rgba(255, 165, 0, 0.6)',
+            yellow: 'rgba(255, 209, 102, 0.6)',
+            green: 'rgba(6, 214, 160, 0.6)',
+            blue: 'rgba(17, 138, 178, 0.6)',
+            purple: 'rgba(122, 78, 191, 0.6)',
+            pink: 'rgba(239, 71, 111, 0.6)',
+            grey: 'rgba(203, 213, 225, 0.6)'
+        };
+        
+        function wrapLabel(label, maxWidth) {
+            if (typeof label !== 'string') return label;
+            if (label.length <= maxWidth) return label;
+
+            const words = label.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxWidth && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            if (currentLine.trim().length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines.length > 0 ? lines : [label]; // Ensure it returns at least the original label if no split occurs
+        }
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    labels: {
+                        color: '#374151', // Tailwind gray-700
+                        font: { size: 12, family: "'Noto Sans SC', 'Inter', sans-serif" }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0,0,0,0.7)',
+                    titleColor: '#FFFFFF',
+                    bodyColor: '#FFFFFF',
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: { 
+                        color: '#374151',
+                        font: { size: 11, family: "'Noto Sans SC', 'Inter', sans-serif" },
+                        callback: function(value, index, values) {
+                            const label = this.getLabelForValue(value);
+                            return wrapLabel(label, 10); // Adjust wrap width for x-axis if needed
+                        }
+                    },
+                    grid: { color: CHART_COLORS.grey }
+                },
+                y: {
+                    ticks: { color: '#374151', font: { size: 11, family: "'Noto Sans SC', 'Inter', sans-serif" } },
+                    grid: { color: CHART_COLORS.grey },
+                    beginAtZero: true
+                }
+            }
+        };
+
+        // 1. Drive Source Chart (Bar Chart)
+        const driveSourceCtx = document.getElementById('driveSourceChart').getContext('2d');
+        new Chart(driveSourceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['电动驱动', '液压驱动', '气动驱动'].map(l => wrapLabel(l,16)),
+                datasets: [{
+                    label: '综合优势评分 (假设)',
+                    data: [85, 70, 60],
+                    backgroundColor: [CHART_BG_COLORS_ALPHA.blue, CHART_BG_COLORS_ALPHA.green, CHART_BG_COLORS_ALPHA.yellow],
+                    borderColor: [CHART_COLORS.blue, CHART_COLORS.green, CHART_COLORS.yellow],
+                    borderWidth: 1
+                },
+                {
+                    label: '应用广泛度 (假设)',
+                    data: [90, 50, 40],
+                    backgroundColor: [CHART_BG_COLORS_ALPHA.pink, CHART_BG_COLORS_ALPHA.red, CHART_BG_COLORS_ALPHA.orange],
+                    borderColor: [CHART_COLORS.pink, CHART_COLORS.red, CHART_COLORS.orange],
+                    borderWidth: 1
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+        // 2. Drive Principle Chart (Radar Chart)
+        const drivePrincipleCtx = document.getElementById('drivePrincipleChart').getContext('2d');
+        new Chart(drivePrincipleCtx, {
+            type: 'radar',
+            data: {
+                labels: ['定位精度', '力控制', '抗冲击', '柔顺性', '响应速度', '成本'].map(l => wrapLabel(l,16)),
+                datasets: [{
+                    label: '刚性驱动器',
+                    data: [9, 3, 2, 2, 7, 6],
+                    backgroundColor: CHART_BG_COLORS_ALPHA.blue,
+                    borderColor: CHART_COLORS.blue,
+                    pointBackgroundColor: CHART_COLORS.blue,
+                }, {
+                    label: '串联弹性(SEA)',
+                    data: [6, 9, 8, 9, 5, 5],
+                    backgroundColor: CHART_BG_COLORS_ALPHA.green,
+                    borderColor: CHART_COLORS.green,
+                    pointBackgroundColor: CHART_COLORS.green,
+                }, {
+                    label: '准直驱(QDD)',
+                    data: [7, 8, 7, 7, 9, 4],
+                    backgroundColor: CHART_BG_COLORS_ALPHA.yellow,
+                    borderColor: CHART_COLORS.yellow,
+                    pointBackgroundColor: CHART_COLORS.yellow,
+                }]
+            },
+            options: {
+                ...defaultChartOptions,
+                scales: {
+                    r: {
+                        angleLines: { color: CHART_COLORS.grey },
+                        grid: { color: CHART_COLORS.grey },
+                        pointLabels: { 
+                            font: { size: 10, family: "'Noto Sans SC', 'Inter', sans-serif" }, 
+                            color: '#374151',
+                            callback: function(label) {
+                                return wrapLabel(label, 10);
+                            }
+                        },
+                        ticks: { backdropColor: 'transparent', color: '#374151', stepSize: 2 },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                }
+            }
+        });
+        
+        // 3. Motor Efficiency Chart
+        const motorEfficiencyCtx = document.getElementById('motorEfficiencyChart').getContext('2d');
+        new Chart(motorEfficiencyCtx, {
+            type: 'bar',
+            data: {
+                labels: ['空心杯电机', '传统铁芯电机'].map(l => wrapLabel(l,16)),
+                datasets: [{
+                    label: '最高效率 (%)',
+                    data: [90, 50],
+                    backgroundColor: [CHART_BG_COLORS_ALPHA.green, CHART_BG_COLORS_ALPHA.red],
+                    borderColor: [CHART_COLORS.green, CHART_COLORS.red],
+                    borderWidth: 1
+                }, {
+                    label: '典型效率 (%)',
+                    data: [70, 15],
+                    backgroundColor: [CHART_BG_COLORS_ALPHA.blue, CHART_BG_COLORS_ALPHA.orange],
+                    borderColor: [CHART_COLORS.blue, CHART_COLORS.orange],
+                    borderWidth: 1
+                }]
+            },
+            options: { ...defaultChartOptions, indexAxis: 'y' }
+        });
+
+        // 4. Power Density Chart
+        const powerDensityCtx = document.getElementById('powerDensityChart').getContext('2d');
+        new Chart(powerDensityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['刚性驱动器', '生物肌肉', '先进QDD', '仿肌肉驱动器(目标)'].map(l => wrapLabel(l,16)),
+                datasets: [{
+                    label: '功率密度 (W/kg)',
+                    data: [250, 500, 1416, 150], // 刚性取中间值
+                    backgroundColor: [CHART_BG_COLORS_ALPHA.blue, CHART_BG_COLORS_ALPHA.green, CHART_BG_COLORS_ALPHA.yellow, CHART_BG_COLORS_ALPHA.pink],
+                    borderColor: [CHART_COLORS.blue, CHART_COLORS.green, CHART_COLORS.yellow, CHART_COLORS.pink],
+                    borderWidth: 1
+                }]
+            },
+            options: defaultChartOptions
+        });
+        
+        // 5. Material Density Chart
+        const materialDensityCtx = document.getElementById('materialDensityChart').getContext('2d');
+        new Chart(materialDensityCtx, {
+            type: 'bar',
+            data: {
+                labels: ['铝合金', '钛合金', 'CF/PEEK', '其他CFRP'].map(l => wrapLabel(l,16)),
+                datasets: [{
+                    label: '密度 (g/cm³)',
+                    data: [2.7, 4.5, 1.5, 1.65], // CF/PEEK取中间值, 其他CFRP取中间值
+                    backgroundColor: [CHART_BG_COLORS_ALPHA.grey, CHART_BG_COLORS_ALPHA.blue, CHART_BG_COLORS_ALPHA.green, CHART_BG_COLORS_ALPHA.yellow],
+                    borderColor: [CHART_COLORS.grey, CHART_COLORS.blue, CHART_COLORS.green, CHART_COLORS.yellow],
+                    borderWidth: 1
+                }]
+            },
+            options: defaultChartOptions
+        });
+
+    </script>
+</body>
+</html>

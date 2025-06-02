@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>江苏金刚科技 (KingKong.tech) 行业洞察信息图</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+            background-color: #F0F4F8; /* Light grey-blue background */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px; /* Default max-width */
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px; /* Base height */
+            max-height: 400px; /* Max height */
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .kpi-card {
+            background-color: #FFFFFF;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            text-align: center;
+        }
+        .kpi-value {
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: #0A2463; /* Dark Blue */
+        }
+        .kpi-label {
+            font-size: 0.875rem;
+            color: #3E92CC; /* Medium Blue */
+            margin-top: 0.5rem;
+        }
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #0A2463; /* Dark Blue */
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        .card {
+            background-color: white;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            margin-bottom: 1.5rem;
+        }
+        .flowchart-step {
+            background-color: #D6E5E3; /* Light Blue */
+            color: #0A2463; /* Dark Blue */
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .flowchart-arrow {
+            font-size: 1.5rem;
+            color: #3E92CC; /* Medium Blue */
+            align-self: center;
+        }
+        .tech-pillar-icon {
+            font-size: 3rem;
+            color: #247BA0; /* Accent Teal */
+            margin-bottom: 0.5rem;
+        }
+    </style>
+    <!--
+    Infographic Narrative & Structure Plan:
+    1.  Header: Title and company introduction.
+    2.  Section 1: Company Snapshot & Mission - Key facts and guiding principle.
+        - Visualization: Big Numbers (Text), Text. Goal: Inform. Method: HTML. No SVG.
+    3.  Section 2: Core Technology Pillars - Showcase main tech areas.
+        - Visualization 1 (Robotics): HTML List with Unicode icons / HTML/CSS simple diagram. Goal: Organize/Inform. Method: HTML/CSS. No SVG.
+        - Visualization 2 (Immersive Tech): Donut Chart (Chart.js). Goal: Compare (proportion of focus). Method: Chart.js (Canvas). No SVG.
+        - Visualization 3 (AI): HTML/CSS diagram. Goal: Show Relationships. Method: HTML/CSS. No SVG.
+    4.  Section 3: Market Focus & Solutions - Target industries and service model.
+        - Visualization 1 (Target Markets): Bar Chart (Chart.js). Goal: Compare. Method: Chart.js (Canvas). No SVG.
+        - Visualization 2 (Turnkey Solution): Flow Chart (HTML/CSS). Goal: Organize (process). Method: HTML/CSS. No SVG.
+    5.  Section 4: R&D Strength & Innovation - Highlight R&D investment and IP.
+        - Visualization 1 (R&D Staff): Donut Chart (Chart.js). Goal: Compare (proportion). Method: Chart.js (Canvas). No SVG.
+        - Visualization 2 (R&D Platforms): Text List. Goal: Inform. Method: HTML. No SVG.
+        - Visualization 3 (IP): Big Number (Text). Goal: Inform. Method: HTML. No SVG.
+    6.  Section 5: Strategic Partnerships & Key Projects - Showcase collaborations and successes.
+        - Visualization 1 (Partners): Text. Goal: Inform. Method: HTML. No SVG.
+        - Visualization 2 (Projects): Card Layout (HTML/CSS). Goal: Inform. Method: HTML/CSS. No SVG.
+    7.  Section 6: Future Outlook & Strategic Initiatives - Discuss future plans, opportunities, and challenges.
+        - Visualization 1 (Initiatives): Text. Goal: Inform. Method: HTML. No SVG.
+        - Visualization 2 (Opportunities/Challenges): Two-column list (HTML/CSS). Goal: Compare/Organize. Method: HTML/CSS. No SVG.
+    8.  Footer: Contact/Website.
+
+    Color Palette Chosen: Brilliant Blues (Dark Blue: #0A2463, Medium Blue: #3E92CC, Light Blue: #D6E5E3, Accent Teal: #247BA0, White: #FFFFFF, Light Gray: #F0F4F8 for body, #F8F8F8 for some card elements if needed).
+
+    Confirmation:
+    - NO SVG graphics will be used.
+    - NO MERMAID JS will be used.
+    - All charts will be rendered to Canvas using Chart.js.
+    - Diagrams will be HTML/CSS.
+    - Label wrapping and tooltip configuration for Chart.js will be implemented.
+    - Chart containers will be styled as per requirements.
+    -->
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-gradient-to-r from-[#0A2463] to-[#3E92CC] py-12 text-white text-center">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-2">江苏金刚科技股份有限公司 (KingKong.tech)</h1>
+            <p class="text-xl">以尖端科技引领沉浸式文化旅游新体验</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+
+        <section class="mb-12">
+            <h2 class="section-title">公司概览与使命</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                <div class="kpi-card">
+                    <div class="kpi-value">2009<span class="text-lg">年</span></div>
+                    <div class="kpi-label">公司前身成立</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">836707</div>
+                    <div class="kpi-label">新三板代码 (NEEQ)</div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">7276<span class="text-lg">万</span></div>
+                    <div class="kpi-label">注册资本 (人民币)</div>
+                </div>
+            </div>
+            <div class="card text-center">
+                <h3 class="text-xl font-semibold text-[#0A2463] mb-2">核心使命</h3>
+                <p class="text-lg text-gray-700">“用科技创新传播民族复兴文化，推动中国历史文化活化和本土文化国际化。”</p>
+                <p class="text-md text-gray-600 mt-2">专注于为文化旅游产业提供高科技体验设备和一体化解决方案。</p>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">核心技术支柱</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card text-center">
+                    <div class="tech-pillar-icon">🤖</div>
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-3">智能机器人技术</h3>
+                    <ul class="text-left text-gray-700 space-y-1 list-disc list-inside">
+                        <li>大型重载工业机器人</li>
+                        <li>高表情仿生机器人</li>
+                        <li>四足自然行走仿生机器人</li>
+                        <li>双臂协同机器人</li>
+                        <li>前沿软体机器人</li>
+                        <li>五指仿人灵巧手</li>
+                    </ul>
+                    <p class="mt-3 text-sm text-gray-600">多元机器人形态，注入逼真动态交互元素。</p>
+                </div>
+                <div class="card text-center">
+                     <div class="tech-pillar-icon">🕶️</div>
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-3">沉浸式体验 (AR/VR/XR)</h3>
+                    <p class="text-gray-700 mb-4">广泛应用AR/VR/XR技术，结合机器视觉和深度学习，打造“新一代超现实互动体验系统”。</p>
+                    <div class="chart-container mx-auto h-48 md:h-56">
+                        <canvas id="immersiveTechChart"></canvas>
+                    </div>
+                    <p class="mt-3 text-sm text-gray-600">“VR飞翔器”荣获国家文化和旅游科技创新工程项目。</p>
+                </div>
+                <div class="card text-center">
+                    <div class="tech-pillar-icon">🧠</div>
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-3">人工智能 (AI)</h3>
+                     <ul class="text-left text-gray-700 space-y-1 list-disc list-inside">
+                        <li>机器视觉与深度学习</li>
+                        <li>语音识别系统</li>
+                        <li>手势识别系统</li>
+                        <li>图像识别系统</li>
+                    </ul>
+                    <p class="mt-3 text-sm text-gray-600">AI赋能智能交互，提升体验的智能化与个性化。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">市场聚焦与解决方案</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-4 text-center">主要目标市场</h3>
+                    <p class="text-sm text-gray-600 mb-3 text-center">深度服务多元文化娱乐领域 (图表数据为示意)</p>
+                    <div class="chart-container mx-auto">
+                        <canvas id="marketFocusChart"></canvas>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-4 text-center">一体化“交钥匙”解决方案</h3>
+                    <p class="text-sm text-gray-600 mb-4 text-center">提供从概念到运营的全周期服务，确保项目卓越交付。</p>
+                    <div class="space-y-3 md:space-y-0 md:flex md:items-center md:space-x-2 justify-around">
+                        <div class="flowchart-step">规划策划</div>
+                        <div class="flowchart-arrow hidden md:block">➔</div>
+                        <div class="flowchart-step">研发制造</div>
+                        <div class="flowchart-arrow hidden md:block">➔</div>
+                        <div class="flowchart-step">内容开发</div>
+                        <div class="flowchart-arrow hidden md:block">➔</div>
+                        <div class="flowchart-step">建设实施</div>
+                        <div class="flowchart-arrow hidden md:block">➔</div>
+                        <div class="flowchart-step">运营管理</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">研发实力与创新驱动</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-4 text-center">研发投入</h3>
+                     <div class="chart-container mx-auto h-56 md:h-64">
+                        <canvas id="rdStaffChart"></canvas>
+                    </div>
+                    <p class="mt-3 text-center text-gray-700">超过 <span class="font-bold">200</span> 名研发人员，占员工总数约 <span class="font-bold">63%</span>。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-4 text-center">核心研发平台</h3>
+                    <ul class="text-gray-700 space-y-2">
+                        <li class="p-3 bg-blue-50 rounded-md shadow-sm">✔️ 前瞻性高智能机器人技术研发平台</li>
+                        <li class="p-3 bg-blue-50 rounded-md shadow-sm">✔️ 江苏省特种尖端机器人工程技术研究中心</li>
+                        <li class="p-3 bg-blue-50 rounded-md shadow-sm">✔️ 江苏省工业设计中心</li>
+                        <li class="p-3 bg-blue-50 rounded-md shadow-sm">✔️ 全流程自主研发体系</li>
+                    </ul>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-value">100+</div>
+                    <div class="kpi-label">自主知识产权</div>
+                    <p class="mt-4 text-gray-600">强大的知识产权组合，构筑技术壁垒。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">战略合作与标杆项目</h2>
+            <div class="card mb-8">
+                <h3 class="text-xl font-semibold text-[#0A2463] mb-3 text-center">主要合作伙伴</h3>
+                <p class="text-center text-gray-700">与中信旅游、复星国际、首建集团、镇江文旅、黄山开投、海昌集团等大型集团及知名企业建立了深度合作关系。</p>
+            </div>
+            <h3 class="text-2xl font-semibold text-[#0A2463] mb-6 text-center">部分成功案例</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-[#247BA0] text-lg mb-1">淮安西游记主题乐园</h4>
+                    <p class="text-sm text-gray-600">《三打白骨精》、《一带一路》等主题项目</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-[#247BA0] text-lg mb-1">苏州乐园</h4>
+                    <p class="text-sm text-gray-600">《森林禁忌之旅》项目</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-[#247BA0] text-lg mb-1">横店影视城</h4>
+                    <p class="text-sm text-gray-600">《世界动物标本馆》、春苑水秀《梦幻园明》</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-[#247BA0] text-lg mb-1">VR飞翔器</h4>
+                    <p class="text-sm text-gray-600">国家文化和旅游科技创新工程项目</p>
+                </div>
+                <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-[#247BA0] text-lg mb-1">深圳芬麦儿童探索博物馆</h4>
+                    <p class="text-sm text-gray-600">国内首创高科技互动体验</p>
+                </div>
+                 <div class="card transform hover:scale-105 transition-transform duration-300">
+                    <h4 class="font-semibold text-[#247BA0] text-lg mb-1">重庆TOPS高科技馆</h4>
+                    <p class="text-sm text-gray-600">动感舱、飞行影院、超感官飞翔车等</p>
+                </div>
+            </div>
+             <p class="mt-6 text-center text-gray-700">成功交付众多标志性项目，塑造卓越难忘的文化体验。</p>
+        </section>
+
+        <section class="mb-12">
+            <h2 class="section-title">未来展望与战略举措</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-2">软件与AI战略升级</h3>
+                    <p class="text-gray-700">拟成立江苏金刚软件科技有限公司，旨在做大做强软件开发板块，优化战略布局，增强整体盈利能力。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-2">引领国家级创新项目</h3>
+                    <p class="text-gray-700">承担国家文化和旅游科技创新工程项目，聚焦尖端机器人与AI技术在新一代超现实互动体验系统中的应用。</p>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-[#0A2463] mb-2">审慎的多元化探索</h3>
+                    <p class="text-gray-700">在深耕主业的同时，对交通、重载工业自动化等新领域抱有长远规划，探索技术应用新蓝海。</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-green-600 mb-3">市场机遇</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>全球及中国市场对高科技、沉浸式文旅体验需求持续增长。</li>
+                        <li>国家对文化产业和科技创新的政策大力支持。</li>
+                        <li>公司全面的研发体系与一体化服务模式优势。</li>
+                        <li>与大型集团的战略合作关系拓展市场。</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3 class="text-xl font-semibold text-red-600 mb-3">潜在挑战</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-1">
+                        <li>行业技术迭代迅速，市场竞争激烈。</li>
+                        <li>大型项目投资回报周期长，对资金和项目管理能力要求高。</li>
+                        <li>需持续高额研发投入以保持技术领先。</li>
+                        <li>宏观经济波动对大型旅游项目投资的影响。</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="mt-6 text-center text-gray-700">凭借战略远见，在动态变化的市场环境中稳步前行。</p>
+        </section>
+    </main>
+
+    <footer class="bg-[#0A2463] text-white py-8 text-center">
+        <p>&copy; 江苏金刚科技股份有限公司 行业洞察。信息图基于公开研究资料编制。</p>
+        <p class="mt-1 text-sm">官网: www.kongking.net</p>
+    </footer>
+
+    <script>
+        const processLabel = (label, maxLength = 16) => {
+            if (label.length <= maxLength) {
+                return label;
+            }
+            const words = label.split(' ');
+            let currentLine = '';
+            const lines = [];
+            for (const word of words) {
+                if ((currentLine + word).length > maxLength && currentLine.length > 0) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            if (currentLine.trim().length > 0) {
+                lines.push(currentLine.trim());
+            }
+            return lines.length > 0 ? lines : [label]; // Return original label if splitting results in empty array
+        };
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        // Immersive Tech Chart (Donut)
+        const immersiveTechCtx = document.getElementById('immersiveTechChart').getContext('2d');
+        new Chart(immersiveTechCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['AR/VR/XR 技术应用', '其他核心技术'],
+                datasets: [{
+                    label: '技术占比',
+                    data: [70, 30], // Illustrative data
+                    backgroundColor: ['#3E92CC', '#D6E5E3'],
+                    borderColor: ['#FFFFFF'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#0A2463' }
+                    },
+                    tooltip: {
+                        callbacks: { title: tooltipTitleCallback }
+                    },
+                    title: {
+                        display: true,
+                        text: '沉浸式技术专注度 (示意)',
+                        color: '#0A2463',
+                        font: { size: 14 }
+                    }
+                }
+            }
+        });
+
+        // Market Focus Chart (Bar)
+        const marketFocusCtx = document.getElementById('marketFocusChart').getContext('2d');
+        new Chart(marketFocusCtx, {
+            type: 'bar',
+            data: {
+                labels: ['主题公园', '旅游景区', '商业综合体', ['科学技术馆', '与博物馆'], ['儿童欢乐', '教育产业']].map(label => Array.isArray(label) ? label : processLabel(label)),
+                datasets: [{
+                    label: '市场关注度 (示意)',
+                    data: [40, 30, 15, 10, 5], // Illustrative data
+                    backgroundColor: ['#0A2463', '#3E92CC', '#247BA0', '#70A9A1', '#D6E5E3'],
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: { display: false },
+                        ticks: { color: '#0A2463' }
+                    },
+                    y: {
+                        grid: { color: '#E0E0E0' },
+                        ticks: { color: '#0A2463', font: {size: 10} }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: { title: tooltipTitleCallback }
+                    }
+                }
+            }
+        });
+        
+        // R&D Staff Chart (Pie)
+        const rdStaffCtx = document.getElementById('rdStaffChart').getContext('2d');
+        new Chart(rdStaffCtx, {
+            type: 'pie',
+            data: {
+                labels: ['研发人员 (63%)', '其他人员 (37%)'],
+                datasets: [{
+                    data: [63, 37],
+                    backgroundColor: ['#0A2463', '#3E92CC'],
+                    borderColor: ['#FFFFFF'],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { color: '#0A2463' }
+                    },
+                    tooltip: {
+                        callbacks: { title: tooltipTitleCallback }
+                    },
+                     title: {
+                        display: true,
+                        text: '员工构成: 研发占比',
+                        color: '#0A2463',
+                        font: { size: 14 }
+                    }
+                }
+            }
+        });
+
+    </script>
+</body>
+</html>
